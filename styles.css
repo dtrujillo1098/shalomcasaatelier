@@ -6,6 +6,7 @@
 .collection .product-image{aspect-ratio:1;background:#ede3d7}.product-meta{display:flex;justify-content:space-between;gap:12px;margin-top:13px;font-size:10px;color:var(--muted)}.product-card .product-price,.product-price{font-size:13px;font-weight:500;margin-top:15px;color:var(--ink)}.product-grid{row-gap:45px}#product-dialog{max-width:1100px}.detail-layout{grid-template-columns:1.15fr 1fr;align-items:start}.product-gallery{padding:18px;background:#eee6dc;min-width:0}.gallery-stage{position:relative}.gallery-stage>img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#ede3d7}.photo-arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:#faf7f2ed;font-size:20px}.photo-arrow.previous{left:10px}.photo-arrow.next{right:10px}#photo-caption{font-size:11px;margin:15px 0;color:var(--muted);text-align:center}.photo-thumbnails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.photo-thumbnails button{padding:0;border:2px solid transparent;background:transparent}.photo-thumbnails button[aria-pressed="true"]{border-color:var(--olive)}.photo-thumbnails img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}.detail-color{font-size:12px;margin-top:20px;color:var(--muted)}.detail-copy{padding:60px 30px 35px}@media(max-width:800px){.detail-layout{grid-template-columns:1fr}.product-gallery{padding:12px}.detail-copy{padding:28px 23px}.gallery-stage>img{max-height:44svh}.photo-thumbnails{max-width:380px;margin:auto}.product-grid{row-gap:32px}}
 
 /* Fabric choices share selection between the card and product gallery. */
+.fabric-choice[data-variant-id="gid://shopify/ProductVariant/67848185053318"] span{background-image:linear-gradient(135deg,#ac9b7d 0%,#ac9b7d 50%,#eee9db 50%,#eee9db 100%)}
 .fabric-options{margin-top:20px}.fabric-label{font-size:11px;color:var(--muted);margin-bottom:8px}.fabric-choices{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.fabric-choice{width:42px;height:42px;border:1px solid transparent;background:transparent;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;padding:5px}.fabric-choice span{display:block;width:28px;height:28px;border-radius:50%;border:1px solid #0002;background-color:var(--swatch);background-image:repeating-linear-gradient(45deg,#ffffff14 0px,#ffffff14 1px,transparent 1px,transparent 3px);box-shadow:inset 0 0 0 1px #ffffff20}.fabric-choice[aria-pressed="true"]{border-color:var(--ink)}.fabric-choice:hover{border-color:#999}.fabric-selected{font-size:11px;min-height:17px;margin-top:8px;color:var(--ink)}#detail-fabric-options{margin-top:25px}#detail-fabric-options .fabric-choice{width:46px;height:46px}#detail-fabric-options .fabric-choice span{width:32px;height:32px}.fabric-view-note{font-size:11px!important;color:var(--muted);line-height:1.6!important;margin-top:10px}.detail-color{margin-top:12px}#product-dialog .detail-note{margin:18px 0;font-size:11px}#product-dialog .detail-copy{padding-top:55px}.product-card .product-meta{margin-top:15px}@media(max-width:800px){#product-dialog .detail-copy{padding-top:28px}}
 
 /* Horizontal brand lockup. Clip only the asset's transparent vertical padding. */
@@ -126,8 +127,337 @@
 .button.buy-link:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
 /* Keep the purchase action beside its variant price. */
-.purchase-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin:14px 0}
+.purchase-row{display:flex;align-items:center;justify-content:center;gap:28px;width:100%;margin:14px 0}
 .purchase-row .product-price,.purchase-row strong{margin:0;flex:0 0 auto;white-space:nowrap}
 .purchase-row .button.buy-link{display:inline-flex;flex:0 1 auto;min-width:0;margin:0;padding:12px 14px;font-size:10px;line-height:1.4;letter-spacing:.025em;text-align:center;white-space:normal}
 .line-meta .purchase-row{margin:0}
 
+/* Tarjetas de producto: precio junto al título, botón de compra debajo */
+.product-card{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px}
+.product-card>*{grid-column:1/-1}
+.product-card>.product-title{grid-column:1;grid-row:2}
+.product-card .purchase-row{display:contents}
+.product-card .purchase-row .product-price{grid-column:2;grid-row:2;align-self:center;margin:22px 0 8px;font-size:16px;white-space:nowrap}
+.product-card .purchase-row .buy-link{grid-column:1/-1;justify-self:center;margin:14px 0 0}
+.product-card .product-image{cursor:pointer}
+/* Seis categorías en la portada, en una sola fila; las nuevas llevan recuadro provisional hasta tener foto */
+.category-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.category-grid .category-label h3{font-size:20px}
+.category-grid .category-tile>p{font-size:10px}
+.category-image-soon{display:flex;align-items:center;justify-content:center;background:#ece3d8}
+.category-image-soon em{font-family:'Playfair Display',serif;font-size:22px;color:var(--muted)}
+@media(max-width:960px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Guía de 3 pasos: recorrido de izquierda a derecha con línea y flecha entre pasos */
+.benefits{align-items:flex-start;justify-content:center;gap:0;padding:34px 8% 30px}
+.benefits .step{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;line-height:1.5}
+.benefits .step b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--ink);background:var(--bg,#faf7f2);font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--ink);position:relative;z-index:1}
+.benefits .step strong{display:block;margin:0;font-size:12px;font-weight:500}
+.benefits .step:not(:last-child)::after{content:'';position:absolute;top:19px;left:calc(50% + 28px);width:calc(100% - 56px);height:1px;background:var(--muted);opacity:.55;transform-origin:left center}
+.benefits .step:not(:last-child)::before{content:'';position:absolute;top:15px;left:calc(150% - 36px);width:7px;height:7px;border-top:1px solid var(--muted);border-right:1px solid var(--muted);transform:rotate(45deg)}
+.benefits.steps-ready .step{opacity:0;transform:translateX(-22px);transition:opacity .6s ease,transform .6s ease;transition-delay:calc(var(--i)*.55s)}
+.benefits.steps-ready .step:not(:last-child)::after{transform:scaleX(0);transition:transform .5s ease calc(var(--i)*.55s + .4s)}
+.benefits.steps-ready .step:not(:last-child)::before{opacity:0;transition:opacity .25s ease calc(var(--i)*.55s + .85s)}
+.benefits.steps-ready.is-visible .step{opacity:1;transform:none}
+.benefits.steps-ready.is-visible .step:not(:last-child)::after{transform:scaleX(1)}
+.benefits.steps-ready.is-visible .step:not(:last-child)::before{opacity:.8}
+@media(max-width:520px){.benefits{padding:26px 3% 24px}.benefits .step b{width:32px;height:32px}.benefits .step:not(:last-child)::after{top:16px;left:calc(50% + 22px);width:calc(100% - 44px)}.benefits .step:not(:last-child)::before{top:12px;left:calc(150% - 30px)}.benefits .step strong{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.benefits.steps-ready .step,.benefits.steps-ready .step::before,.benefits.steps-ready .step::after{transition:none!important}}
+/* Guía de 3 pasos: fondo arena con degradado y círculos con relieve */
+.benefits{background:linear-gradient(180deg,#f3eadf 0%,#e6d6c3 100%);border-top:1px solid #dccab5;border-bottom:1px solid #d6c3ac;padding:40px 8% 36px}
+.benefits .step b{background:#604b40;border-color:#604b40;color:#faf7f2;width:44px;height:44px;font-size:12px;box-shadow:0 0 0 6px rgba(96,75,64,.12),0 8px 16px rgba(96,75,64,.28)}
+.benefits .step strong{font-size:13px;letter-spacing:.01em;color:#3b2d26}
+.benefits .step:not(:last-child)::after{top:22px;left:calc(50% + 40px);width:calc(100% - 80px);height:2px;border-radius:2px;background:linear-gradient(90deg,#604b40,#a68b72);opacity:.7}
+.benefits .step:not(:last-child)::before{top:18px;left:calc(150% - 46px);width:9px;height:9px;border-color:#604b40;border-width:2px}
+@media(max-width:520px){.benefits{padding:28px 3% 26px}.benefits .step b{width:36px;height:36px}.benefits .step:not(:last-child)::after{top:17px;left:calc(50% + 28px);width:calc(100% - 56px)}.benefits .step:not(:last-child)::before{top:13px;left:calc(150% - 36px)}}
+/* Tarjeta 1993: huella y firma de Shalom que se dibujan al entrar en pantalla */
+.about-year{background:#604b40;gap:12px}
+.about-brand{display:flex;align-items:center;gap:12px;margin-bottom:2px}
+.about-brand .brand-huella{height:46px;width:auto;display:block}
+.about-brand .brand-shalom{height:34px;width:auto;display:block}
+.about-year.anim-ready .brand-huella{opacity:0;transform:scale(.55) rotate(-14deg);clip-path:inset(100% 0 0 0);transition:opacity .5s ease,transform 1s cubic-bezier(.2,.8,.2,1),clip-path 1s ease}
+.about-year.anim-ready .brand-shalom{opacity:0;clip-path:inset(0 100% 0 0);transition:opacity .4s ease .75s,clip-path 1s ease .75s}
+.about-year.anim-ready strong,.about-year.anim-ready small{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease}
+.about-year.anim-ready strong{transition-delay:1.5s}
+.about-year.anim-ready small{transition-delay:1.8s}
+.about-year.anim-ready.is-in .brand-huella{opacity:1;transform:none;clip-path:inset(0)}
+.about-year.anim-ready.is-in .brand-shalom{opacity:1;clip-path:inset(0)}
+.about-year.anim-ready.is-in strong,.about-year.anim-ready.is-in small{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.about-year.anim-ready *{transition:none!important}}
+/* Encabezado: logo al centro, 3 categorías a cada lado (en el celular el menú sigue igual) */
+.nav-group{display:contents}
+.header nav .nav-group>a{display:flex;align-items:center;min-height:48px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.header #main-nav .nav-group>a{color:#3d302a;font-weight:600}
+.header #main-nav .nav-group>a:hover{color:#6b4d38;text-decoration:underline;text-underline-offset:6px}
+@media(min-width:961px){
+  .header nav .nav-group>a{display:inline-flex;min-height:0;padding:0;border-bottom:0;font-size:13px}
+}
+@media(min-width:981px){
+  .header{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:0}
+  .header #main-nav{display:contents}
+  .header .brand-logo{grid-column:2;grid-row:1;justify-self:center}
+  .header .nav-group{display:flex;align-items:center;grid-row:1;gap:26px;white-space:nowrap}
+  .header .nav-left{grid-column:1;justify-self:end;margin-right:44px}
+  .header .nav-right{grid-column:3;justify-self:start;margin-left:44px}
+  .header .header-actions{display:none}
+}
+/* Encabezado estilo editorial (escritorio ancho): menú en mayúsculas, logo más pequeño y transparente sobre la portada */
+@media(min-width:981px){
+  :root{--header-height:78px}
+  .header{height:78px}
+  .header nav .nav-group>a{font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:500}
+  .header .brand-logo{width:clamp(220px,18vw,270px);height:60px}
+  .header .nav-left{margin-right:40px}
+  .header .nav-right{margin-left:40px}
+  body.site-home .header{transition:background .35s ease,box-shadow .35s ease,border-color .35s ease}
+  body.site-home .header:not(.is-scrolled){background:linear-gradient(180deg,rgba(32,24,20,.5),rgba(32,24,20,0));-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom-color:transparent;box-shadow:none}
+  body.site-home .header:not(.is-scrolled) #main-nav .nav-group>a,
+  body.site-home .header:not(.is-scrolled) #main-nav .nav-group>a:hover{color:#fff}
+  body.site-home .header:not(.is-scrolled) a[aria-current="page"]{text-decoration-color:#fff}
+  body.site-home .header:not(.is-scrolled) .brand-logo img{filter:brightness(0) invert(1)}
+}
+/* Barra superior más delgada (escritorio) */
+@media(min-width:961px){
+  .utility-bar{border-top-width:2px}
+  .utility-inner{min-height:24px}
+  .utility-links a{line-height:12px}
+  .utility-actions{gap:6px}
+  .utility-actions button{min-height:22px;min-width:24px;padding:2px}
+  .utility-actions svg{width:14px;height:14px}
+}
+/* Pie de página con la paleta de la barra superior */
+footer{background:#29231f;color:#e7d9c8;border-top:3px solid #94745d}
+footer a{color:#e7d9c8}
+footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:5px}
+footer .footer-top p{color:#cdbca8}
+footer .footer-bottom{border-top-color:rgba(231,217,200,.22);color:#b9a894}
+footer .brand-logo img{filter:brightness(0) invert(1);opacity:.96}
+/* Enlaces legales en el pie y páginas legales */
+footer .footer-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 40px;padding:6px 0 26px;font-size:12px}
+footer .footer-legal a{opacity:.92}
+.legal{max-width:760px;margin:0 auto;padding-top:10px;padding-bottom:70px}
+.legal h2{font-family:'Playfair Display',serif;font-size:25px;font-weight:500;margin:38px 0 12px;color:#3b2d26}
+.legal p,.legal li{font-size:15px;line-height:1.85;color:#5d4a3f}
+.legal ul{margin:10px 0 0 20px;padding:0}
+.legal li{margin-bottom:6px}
+.legal a{text-decoration:underline;text-underline-offset:4px;color:#604b40}
+.legal-todo{background:#fff1a8;color:#5a4300;padding:1px 6px;border-radius:3px;font-size:.92em}
+.legal p{margin:0 0 14px}
+/* Menú principal más pequeño */
+@media(min-width:981px){
+  .header nav .nav-group>a{font-size:10.5px;letter-spacing:.08em}
+  .header .nav-group{gap:22px}
+}
+/* Portada: sin la etiqueta del nombre de la sección (el espacio se conserva para centrar los controles) */
+.hero-bottom #banner-caption{visibility:hidden}
+/* Portada: sin el contador "01 / 04" (el espacio se conserva para centrar los controles) */
+.hero-bottom #banner-count{visibility:hidden}
+/* Celular: sin la flecha ↗ junto al nombre de cada categoría */
+@media(max-width:960px){
+  .category-label span[aria-hidden="true"]{display:none}
+}
+/* Celular: sin la flecha ↗ en los enlaces del blog */
+@media(max-width:960px){
+  .journal-read span,.text-link span{display:none}
+}
+/* Tarjetas de producto en celular y tableta: precio bajo el título y colores más pequeños */
+@media(max-width:960px){
+  .product-card>.product-title{grid-column:1/-1;margin:16px 0 4px}
+  .product-card .product-title h3{font-size:20px;line-height:1.2}
+  .product-card .purchase-row .product-price{grid-column:1/-1;grid-row:3;align-self:start;margin:0 0 4px;font-size:14px}
+  .product-card .fabric-options{margin-top:12px}
+  .product-card .fabric-label{font-size:10px;margin-bottom:4px}
+  .product-card .fabric-choices{gap:2px}
+  .product-card .fabric-choice{width:32px;height:32px;padding:3px}
+  .product-card .fabric-choice span{width:22px;height:22px}
+  .product-card .fabric-selected{margin-top:4px}
+}
+/* Pie de página en celular: sin las categorías de producto y mejor proporcionado */
+@media(max-width:960px){
+  footer .footer-top nav a:nth-child(-n+6){display:none}
+  footer .footer-top{gap:22px;padding-bottom:26px}
+  footer .footer-top nav{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:16px;font-size:13px}
+  footer .footer-legal{flex-direction:column;align-items:flex-start;gap:12px;padding:0 0 24px;font-size:12px}
+  footer .footer-bottom{gap:8px}
+}
+/* Portada en celular: encabezado transparente sobre la foto (como en escritorio) y sólido al bajar o al abrir el menú */
+@media(max-width:980px){
+  :root{--header-height:72px}
+  body.site-home .header{transition:background .35s ease,box-shadow .35s ease,border-color .35s ease}
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)){background:linear-gradient(180deg,rgba(32,24,20,.55),rgba(32,24,20,0));-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom-color:transparent;box-shadow:none;color:#fff}
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .brand-logo img{filter:brightness(0) invert(1)}
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .menu-toggle,
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .bag{color:#fff}
+}
+@media(max-width:980px){
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .bag span{color:#3d302a}
+}
+/* Portada en celular: un solo artículo destacado del blog y un botón para ver todos */
+.blog-all-mobile{display:none}
+@media(max-width:760px){
+  #blog .journal-card:nth-child(n+2){display:none}
+  #blog .section-heading>.text-link{display:none}
+  #blog .blog-all-mobile{display:inline-flex;align-self:flex-start;margin-top:26px}
+}
+.blog-all-mobile{border-radius:999px}
+/* Portada: los fondos de las secciones se alternan (arena / claro) */
+body.site-home .blog-section{background:linear-gradient(180deg,#f3eadf 0%,#e6d6c3 100%);border-top:1px solid #dccab5;border-bottom:1px solid #d6c3ac}
+body.site-home .home-about{background:var(--paper);border-top:0;border-bottom:0}
+/* Celular: "Ver todos los artículos" a la derecha de "Leer artículo", en la misma fila */
+@media(max-width:760px){
+  #blog .journal-card:first-child{display:flex;flex-wrap:wrap;align-items:center;column-gap:14px}
+  #blog .journal-card:first-child>*{flex:0 0 100%;min-width:0}
+  #blog .journal-card:first-child::after{content:'';flex:0 0 100%;height:1px;background:var(--line);order:1;margin-top:22px}
+  #blog .journal-card:first-child .journal-read{order:2;flex:1 1 0;border-top:0;margin-top:0;padding:14px 0}
+  #blog .journal-card:first-child .blog-all-mobile{order:3;flex:0 0 auto;display:inline-flex;margin:0;padding:12px 20px;min-height:44px;font-size:12px}
+}
+/* Pie en celular: enlaces arriba y el logo con su frase al final, antes del copyright */
+@media(max-width:960px){
+  footer{display:flex;flex-direction:column}
+  footer .footer-top{display:contents}
+  footer .footer-top nav{order:1;margin-bottom:24px}
+  footer .footer-legal{order:2}
+  footer .footer-top .brand-logo{order:3;margin-top:4px}
+  footer .footer-top p{order:4;margin:14px 0 28px}
+  footer .footer-bottom{order:5}
+}
+/* Pie en celular: sin la frase "Muebles que acompañan tu vida…" */
+@media(max-width:960px){
+  footer .footer-top p{display:none}
+  footer .footer-top .brand-logo{margin-bottom:26px}
+}
+/* Pie en celular: sin el texto "Tienda en preparación · Compra online próximamente" */
+@media(max-width:960px){
+  footer .footer-bottom span:last-child{display:none}
+}
+/* Pie en celular: los 4 enlaces pegados a la izquierda */
+@media(max-width:960px){
+  footer .footer-top nav{grid-template-columns:repeat(2,max-content);justify-content:start;column-gap:48px}
+}
+/* Pie en celular: enlaces legales alineados a la derecha */
+@media(max-width:960px){
+  footer .footer-legal{align-items:flex-end;text-align:right}
+}
+/* Pie en celular: los 4 enlaces en lista (una columna) */
+@media(max-width:960px){
+  footer .footer-top nav{grid-template-columns:max-content;row-gap:14px}
+}
+/* Pie en celular: sin "Inspiración"; la lista (izq.) y los enlaces legales (der.) quedan en la misma fila */
+@media(max-width:960px){
+  footer{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;align-items:start}
+  footer .footer-top nav a:nth-child(9){display:none}
+  footer .footer-top nav{grid-column:1;grid-row:1;grid-template-columns:max-content;row-gap:14px;margin-bottom:26px;font-size:12px}
+  footer .footer-legal{grid-column:2;grid-row:1;gap:14px;padding:0;margin-bottom:26px}
+  footer .footer-top nav a,footer .footer-legal a{font-size:12px;line-height:1.5}
+  footer .footer-top .brand-logo{grid-column:1/-1;grid-row:2}
+  footer .footer-bottom{grid-column:1/-1;grid-row:3}
+}
+/* Pie en celular: la línea sobre el copyright baja un poco (más aire bajo el logo) */
+@media(max-width:960px){
+  footer .footer-top .brand-logo{margin-bottom:46px}
+}
+/* Pie en celular: más delgado */
+@media(max-width:960px){
+  footer{padding:30px 6% 16px;row-gap:0}
+  footer .footer-top nav{row-gap:9px;margin-bottom:18px}
+  footer .footer-legal{gap:9px;margin-bottom:18px}
+  footer .footer-top .brand-logo{width:min(100%,290px);height:54px;margin-bottom:20px}
+  footer .footer-bottom{padding-top:14px;gap:4px}
+}
+/* Pie en celular: logo centrado */
+@media(max-width:960px){
+  footer .footer-top .brand-logo{justify-self:center;margin-left:auto;margin-right:auto}
+}
+/* Pie: sin la frase "Muebles que acompañan tu vida…" en ningún tamaño de pantalla */
+footer .footer-top p{display:none}
+/* Portada (escritorio): productos destacados */
+.featured-section{display:none}
+@media(min-width:961px){
+  .featured-section:not([hidden]){display:block;background:linear-gradient(180deg,#f3eadf 0%,#e6d6c3 100%);border-top:1px solid #dccab5;border-bottom:1px solid #d6c3ac}
+  .featured-section .section-heading{margin-bottom:34px}
+  .featured-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px}
+  .featured-card{display:block;min-width:0}
+  .featured-image{overflow:hidden;aspect-ratio:1;background:#ece3d8}
+  .featured-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .featured-card:hover .featured-image img{transform:scale(1.04)}
+  .featured-card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;margin:16px 0 6px;color:#3b2d26}
+  .featured-price{font-size:13px;color:#604b40}
+  /* los fondos siguen alternando: categorías claro, destacados arena, blog claro, "Dejando huella" arena */
+  body.site-home .featured-section:not([hidden])~.blog-section{background:var(--paper);border-top:0;border-bottom:0}
+  body.site-home .featured-section:not([hidden])~.home-about{background:linear-gradient(180deg,#f3eadf 0%,#e6d6c3 100%);border-top:1px solid #dccab5;border-bottom:1px solid #d6c3ac}
+}
+/* El nombre del color solo se muestra dentro del producto, no en las tarjetas */
+.product-card .fabric-selected,.line-product .fabric-selected{display:none}
+/* Dentro del producto el color se muestra una sola vez (bajo los círculos) */
+.detail-copy:has(.fabric-selected) #detail-color,.detail-copy:has(.fabric-selected) #line-detail-color{display:none}
+/* Dentro del producto: "Seguir explorando" más abajo, separado del precio y el botón de compra */
+#back-to-catalog,#line-detail-close{margin-top:220px}
+/* Dentro del producto: el precio a la izquierda y el botón de compra a la derecha */
+dialog .purchase-row{justify-content:space-between}
+dialog .purchase-row .button.buy-link{margin-right:44px}
+dialog .purchase-row{align-items:flex-end}
+/* "Seguir explorando" abajo y alineado con "Agregar al carrito" (mismo ancho y bordes) */
+@media(min-width:761px){
+  dialog .purchase-row .button.buy-link{width:197px;justify-content:center}
+  #back-to-catalog,#line-detail-close{display:flex;width:197px;margin-left:auto;margin-right:44px;position:sticky;bottom:18px}
+}
+@media(max-width:760px){
+  #back-to-catalog,#line-detail-close{display:flex;margin-left:auto;margin-right:44px}
+}
+#back-to-catalog,#line-detail-close{white-space:nowrap;gap:12px;padding-left:20px;padding-right:20px}
+/* Botones del producto sin flecha ↗ */
+#back-to-catalog span,#line-detail-close span{display:none}
+#back-to-catalog,#line-detail-close{justify-content:center}
+/* "Seguir explorando" siempre en el borde inferior del panel, sea cual sea el alto de la ventana */
+@media(min-width:761px){
+  #product-dialog .detail-copy,#line-dialog .detail-copy{display:flex;flex-direction:column;min-height:100%}
+  #product-dialog .detail-copy>:nth-last-child(2),#line-dialog .detail-copy>:nth-last-child(2){margin-bottom:40px}
+  #back-to-catalog,#line-detail-close{margin-top:auto}
+}
+@media(min-width:761px){
+  #product-dialog .detail-copy,#line-dialog .detail-copy{padding-bottom:18px}
+}
+/* Logo nuevo: huella de Shalom + nombre (encabezado y pie) */
+.brand-logo.logo7{display:flex;align-items:center;gap:12px;white-space:nowrap;color:#3b2d26;overflow:visible}
+.header .brand-logo.logo7,footer .brand-logo.logo7,.journal-header .brand-logo.logo7{width:auto!important;height:auto!important;max-width:none}
+.brand-logo.logo7 img.logo7-mark{width:auto;height:50px;flex:none}
+.logo7-sep{width:1px;height:46px;background:currentColor;opacity:.3;flex:none}
+.logo7-text{display:flex;flex-direction:column;align-items:flex-start}
+.logo7-t1{font:500 11px 'DM Sans',sans-serif;letter-spacing:4px;line-height:1.3}
+.logo7-t2{font:500 32px 'Playfair Display',Georgia,serif;letter-spacing:-.5px;line-height:1.05;margin:2px 0}
+.logo7-t3{font:400 11px 'DM Sans',sans-serif;letter-spacing:2px;opacity:.75;line-height:1.3}
+footer .brand-logo.logo7{color:#e7d9c8}
+@media(min-width:981px){
+  body.site-home .header:not(.is-scrolled) .brand-logo.logo7{color:#fff}
+}
+@media(max-width:980px){
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .brand-logo.logo7{color:#fff}
+}
+@media(max-width:960px){
+  .header .brand-logo.logo7{gap:9px;justify-self:center;max-width:100%}
+  .brand-logo.logo7 img.logo7-mark{height:34px}
+  .logo7-sep{height:32px}
+  .logo7-t1{letter-spacing:2px}
+  .logo7-t2{font-size:20px}
+  .logo7-t3{letter-spacing:1px}
+  footer .brand-logo.logo7{margin-left:auto;margin-right:auto}
+}
+@media(max-width:380px){.logo7-t3{display:none}}
+/* Encabezado de escritorio: cada grupo de categorías centrado en su mitad (izquierda y derecha del logo) */
+@media(min-width:981px){
+  .header .nav-left,.header .nav-right{justify-self:center;margin-left:0;margin-right:0}
+}
+@media(min-width:981px){
+  .header{padding-left:0;padding-right:0}
+}
+/* Barra de arriba: lupa y bolsa más grandes (escritorio) */
+@media(min-width:961px){
+  .utility-actions{gap:10px}
+  .utility-actions button{min-height:28px;min-width:30px;padding:3px}
+  .utility-actions svg{width:20px;height:20px}
+  .utility-cart-count{font-size:11px}
+}
+/* Menú principal de escritorio: categorías más grandes */
+@media(min-width:981px){
+  .header nav .nav-group>a{font-size:13px;letter-spacing:.09em}
+  .header .nav-group{gap:26px}
+}

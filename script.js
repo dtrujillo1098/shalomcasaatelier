@@ -43,7 +43,9 @@ const categoryPages = [
   {name:'Sofacamas',file:'sofacamas.html'},
   {name:'Salas',file:'salas.html'},
   {name:'Sillas auxiliares',file:'sillas-auxiliares.html'},
-  {name:'Camas',file:'camas.html'}
+  {name:'Camas',file:'camas.html'},
+  {name:'Comedores',file:'comedores.html'},
+  {name:'Mesas de centro',file:'mesas-de-centro.html'}
 ];
 const allSearchProducts = [];
 const searchDialog = document.querySelector('#search-dialog');
@@ -83,11 +85,28 @@ const liveCardTemplate = liveGrid?.querySelector('article')?.cloneNode(true);
 function selectedLiveVariant(product) {
   return product.variants.find(variant => variant.id === liveSelections.get(product.id)) || product.variants[0];
 }
-// Runa shares one Shopify media collection, but each color has its own gallery.
+function liveVariantLabel(product, variant) {
+  if (product.id === 'gid://shopify/Product/15461604130950' && variant.id === 'gid://shopify/ProductVariant/67848189870214') return 'Bouclé Blanco';
+  if (product.id === 'gid://shopify/Product/15461603836038' && variant.id === 'gid://shopify/ProductVariant/67848185053318') return 'Combinado';
+  if (product.id === 'gid://shopify/Product/15461603836038' && variant.id === 'gid://shopify/ProductVariant/67848184955014') return 'Beige';
+  return variant.title;
+}
+// Each product shares one Shopify media collection; colors keep separate galleries.
 const livePhotoGroups = {
-  'gid://shopify/Product/15461603836038': {
-    'gid://shopify/ProductVariant/67848184955014': 'sofacama-runa-premium-beige-ambientacion-',
-    'gid://shopify/ProductVariant/67848184987782': 'sofacama-runa-premium-gris-ambientacion-'
+  "gid://shopify/Product/15461603836038": {
+    "gid://shopify/ProductVariant/67848184955014": "sofacama-runa-premium-beige-ambientacion-",
+    "gid://shopify/ProductVariant/67848184987782": "sofacama-runa-premium-gris-ambientacion-",
+    "gid://shopify/ProductVariant/67848185020550": "sofacama-runa-premium-gris-raton-ambientacion-",
+    "gid://shopify/ProductVariant/67848185053318": "sofacama-runa-premium-combinado-ambientacion-"
+  },
+  "gid://shopify/Product/15461604098182": {
+    "gid://shopify/ProductVariant/67848189739142": "sofacama-rubi-beige-ambientacion-",
+    "gid://shopify/ProductVariant/67848189771910": "sofacama-rubi-blanco-ambientacion-",
+    "gid://shopify/ProductVariant/67848189804678": "sofacama-rubi-azul-cielo-ambientacion-",
+    "gid://shopify/ProductVariant/67848189837446": "sofacama-rubi-azul-oscuro-ambientacion-"
+  },
+  "gid://shopify/Product/15461604130950": {
+    "gid://shopify/ProductVariant/67848189870214": "sofa-cama-polar-boucle-blanco-ambientacion-"
   }
 };
 function liveVariantPhotos(product, variant) {
@@ -104,6 +123,13 @@ function liveVariantPhotos(product, variant) {
     ? [variant.image, ...product.photos.filter(photo => photo.url !== variant.image.url)]
     : [...product.photos];
 }
+// Se pide a Shopify cada foto al tamaño con el que se muestra (no la de 1254 px completa).
+function liveImageUrl(product, url, width) {
+  if (!url || !width || !url.startsWith('https://cdn.shopify.com/')) return url;
+  const sized = new URL(url);
+  sized.searchParams.set('width', width);
+  return sized.toString();
+}
 function setLiveImage(image, url, alt) {
   if (!image) return;
   image.hidden = !url;
@@ -111,8 +137,12 @@ function setLiveImage(image, url, alt) {
   image.alt = alt || '';
 }
 function liveVariantColor(product, variant) {
+  if (product.id === 'gid://shopify/Product/15461604130950' && variant.id === 'gid://shopify/ProductVariant/67848189870214') return '#f1eee6';
+  if (product.id === 'gid://shopify/Product/15461604098182') { const colors = {"gid://shopify/ProductVariant/67848189739142": "#c5bca8", "gid://shopify/ProductVariant/67848189771910": "#eeeae2", "gid://shopify/ProductVariant/67848189804678": "#7897ac", "gid://shopify/ProductVariant/67848189837446": "#293f66"}; if (colors[variant.id]) return colors[variant.id]; }
+  if (product.id === 'gid://shopify/Product/15461603836038' && variant.id === 'gid://shopify/ProductVariant/67848185053318') return '#ac9b7d';
+  if (product.id === 'gid://shopify/Product/15461603836038' && variant.id === 'gid://shopify/ProductVariant/67848185020550') return '#4c4d50';
   const title = normalize(variant.title);
-  const known = products.flatMap(item => item.fabrics).sort((a,b) => b.color.length - a.color.length);
+  const known = products.flatMap(item => item.id === 'polar' ? [{"color": "Terracota", "hex": "#b16b4a"}, {"color": "Arena", "hex": "#cab99c"}, {"color": "Azul petróleo", "hex": "#2e6670"}, {"color": "Mostaza", "hex": "#bf923d"}] : item.fabrics).sort((a,b) => b.color.length - a.color.length);
   const color = known.find(fabric => title.includes(normalize(fabric.color)));
   if (color) return color.hex;
   const original = products.find(item => item.id === product.localId);
@@ -133,7 +163,7 @@ function liveVariantControls(product, host) {
     option.className = 'fabric-choice';
     option.dataset.liveVariant = product.id;
     option.dataset.variantId = variant.id;
-    option.title = variant.title + (variant.availableForSale ? '' : ' · Agotado');
+    option.title = liveVariantLabel(product, variant) + (variant.availableForSale ? '' : ' · Agotado');
     option.setAttribute('aria-label', option.title);
     option.setAttribute('aria-pressed', String(variant.id === selectedLiveVariant(product).id));
     option.style.setProperty('--swatch', liveVariantColor(product, variant));
@@ -143,7 +173,7 @@ function liveVariantControls(product, host) {
   const selected = document.createElement('p');
   selected.className = 'fabric-selected';
   selected.setAttribute('aria-live', 'polite');
-  selected.textContent = selectedLiveVariant(product).title;
+  selected.textContent = liveVariantLabel(product, selectedLiveVariant(product));
   host.append(label, palette, selected);
 }
 function filterLiveCatalog() {
@@ -177,10 +207,10 @@ function renderLiveCatalog() {
     });
     card.querySelector('h3').textContent = product.title;
     const description = card.querySelector('.line-description') || card.querySelector('.product-title + p');
-    if (description) description.textContent = product.description;
+    description?.remove();
     const variant = selectedLiveVariant(product);
     const photos = liveVariantPhotos(product, variant);
-    setLiveImage(card.querySelector('img'), photos[0]?.url, product.title + ' · ' + variant.title);
+    setLiveImage(card.querySelector('img'), liveImageUrl(product, photos[0]?.url, 900), product.title + ' · ' + liveVariantLabel(product, variant));
     const choices = card.querySelector('.fabric-options');
     if (choices) liveVariantControls(product, choices);
     else if (product.variants.length > 1) {
@@ -189,14 +219,15 @@ function renderLiveCatalog() {
       card.querySelector('.line-meta').before(host);
     }
     const meta = card.querySelector('.product-meta span, .line-meta span');
-    if (meta) meta.textContent = variant.title === 'Default Title' ? '' : variant.title;
+    const hasColorPicker = Boolean(choices) || product.variants.length > 1;
+    if (meta) meta.textContent = variant.title === 'Default Title' || hasColorPicker ? '' : liveVariantLabel(product, variant);
     const type = card.querySelector('.line-type');
     if (type) type.textContent = product.productType;
-    const photoCount = card.querySelector('.product-meta span + span');
-    if (photoCount) photoCount.textContent = photos.length + ' fotos';
-    const imageAction = card.querySelector('.view-product');
-    if (imageAction) imageAction.textContent = 'Ver modelo ↗';
+    card.querySelector('.product-meta')?.remove();
+    card.querySelector('.product-link')?.remove(); // se abre el producto desde la imagen
+    card.querySelector('.view-product')?.remove(); // al pasar el mouse solo hace zoom la imagen
     updateBuyButton(card, variant.key);
+    card.querySelectorAll('.buy-link').forEach(link => link.remove()); // el botón de compra solo se muestra dentro del producto
     liveGrid.append(card);
   }
   const intro = document.querySelector('.page-intro-text');
@@ -210,7 +241,7 @@ function renderLiveDetail() {
   document.querySelector('#detail-title, #line-detail-title').textContent = product.title;
   document.querySelector('#detail-description, #line-detail-description').textContent = product.description;
   const color = document.querySelector('#detail-color, #line-detail-color');
-  if (color) color.textContent = variant.title === 'Default Title' ? '' : variant.title;
+  if (color) color.textContent = variant.title === 'Default Title' ? '' : liveVariantLabel(product, variant);
   let controls = liveDialog.querySelector('#detail-fabric-options, .live-detail-options');
   if (!controls) {
     controls = document.createElement('div');
@@ -221,7 +252,7 @@ function renderLiveDetail() {
   const photos = liveVariantPhotos(product, variant);
   if (livePhotoIndex >= photos.length) livePhotoIndex = 0;
   const photo = photos[livePhotoIndex];
-  setLiveImage(liveDialog.querySelector('#detail-image, #line-detail-image'), photo?.url, photo?.altText || product.title);
+  setLiveImage(liveDialog.querySelector('#detail-image, #line-detail-image'), photo?.url, photo?.altText || product.title); // foto grande: archivo original, sin redimensionar
   const thumbs = liveDialog.querySelector('#photo-thumbnails');
   if (thumbs) {
     thumbs.replaceChildren();
@@ -232,7 +263,7 @@ function renderLiveDetail() {
       button.setAttribute('aria-label', 'Ver foto ' + (index + 1));
       button.setAttribute('aria-pressed', String(index === livePhotoIndex));
       const image = document.createElement('img');
-      setLiveImage(image, item.url, '');
+      setLiveImage(image, liveImageUrl(product, item.url, 320), '');
       button.append(image);
       thumbs.append(button);
     });
@@ -333,4 +364,58 @@ if(document.body.dataset.page === 'inicio') {
   const legacyPages = {coleccion:'sofacamas.html',salas:'salas.html','sillas-auxiliares':'sillas-auxiliares.html',camas:'camas.html',nosotros:'nosotros.html',guia:'sofacamas.html#guia',inspiracion:'blog/index.html',blog:'blog/index.html'};
   const destination = legacyPages[window.location.hash.slice(1)];
   if(destination) window.location.replace(siteUrl(destination));
+}
+
+// Guía de 3 pasos: aparece de izquierda a derecha cuando entra en pantalla
+const stepsGuide = document.querySelector('.benefits');
+if (stepsGuide && 'IntersectionObserver' in window) {
+  stepsGuide.classList.add('steps-ready');
+  new IntersectionObserver((entries, observer) => {
+    if (entries.some(entry => entry.isIntersecting)) { stepsGuide.classList.add('is-visible'); observer.disconnect(); }
+  }, {threshold:.4}).observe(stepsGuide);
+}
+
+// Tarjeta 1993 de Nosotros: la huella y la firma se dibujan al verla
+const aboutYear = document.querySelector('.about-year');
+if (aboutYear && 'IntersectionObserver' in window) {
+  aboutYear.classList.add('anim-ready');
+  new IntersectionObserver((entries, observer) => {
+    if (entries.some(entry => entry.isIntersecting)) { aboutYear.classList.add('is-in'); observer.disconnect(); }
+  }, {threshold:.6}).observe(aboutYear);
+}
+
+// Portada: el encabezado es transparente sobre la foto y se vuelve sólido al bajar
+const homeHeader = document.querySelector('body.site-home .header');
+if (homeHeader) {
+  const syncHeader = () => homeHeader.classList.toggle('is-scrolled', window.scrollY > 40);
+  syncHeader();
+  window.addEventListener('scroll', syncHeader, {passive: true});
+}
+
+// Portada (escritorio): productos destacados tomados del catálogo en vivo de Shopify
+const featuredGrid = document.querySelector('#featured-grid');
+if (featuredGrid) {
+  const money = new Intl.NumberFormat('es-CO', {style:'currency', currency:'COP', maximumFractionDigits:0});
+  window.addEventListener('shopify:updated', () => {
+    const items = shopifyLiveProducts.filter(product => product.line === 'sofacamas').slice(0, 4);
+    featuredGrid.replaceChildren();
+    for (const product of items) {
+      const variant = product.variants[0];
+      const link = document.createElement('a');
+      link.className = 'featured-card';
+      link.href = siteUrl('sofacamas.html') + '?producto=' + encodeURIComponent(product.localId);
+      const frame = document.createElement('div');
+      frame.className = 'featured-image';
+      const img = document.createElement('img');
+      img.loading = 'lazy'; img.width = 900; img.height = 900;
+      setLiveImage(img, liveImageUrl(product, liveVariantPhotos(product, variant)[0]?.url, 900), product.title);
+      frame.append(img);
+      const name = document.createElement('h3'); name.textContent = product.title;
+      const price = document.createElement('p'); price.className = 'featured-price';
+      price.textContent = Number(variant.price?.amount) > 0 ? money.format(Number(variant.price.amount)) + ' COP' : 'Consultar precio';
+      link.append(frame, name, price);
+      featuredGrid.append(link);
+    }
+    document.querySelector('#destacados').hidden = !items.length;
+  });
 }

@@ -22,3 +22,12 @@
 .inner-page .article-toc{top:calc(var(--header-height) + 24px)}.inner-page .article-body section{scroll-margin-top:calc(var(--header-height) + 24px)}
 @media(min-width:1600px){.collection-tabs{margin-left:auto;margin-right:auto}}
 @media(max-width:760px){.page-intro{padding:30px 5% 22px}.page-intro .breadcrumbs{padding-bottom:20px}.page-intro-text{font-size:14px}.collection-tabs{margin:0 5%;gap:8px;padding-bottom:20px}.collection-tabs a{font-size:11px;padding:10px 16px}.home-about{grid-template-columns:1fr;gap:32px}.home-about img{height:310px}.home-about h2{font-size:38px}.line-search-toolbar{align-items:stretch;flex-direction:column;gap:12px}.line-search-toolbar .search{min-width:0}.global-search-content{padding:48px 20px 25px}.global-search-content h2{font-size:30px}#global-search-form{gap:7px}#global-search-form .button{min-width:70px;padding:14px;font-size:12px}.page-bottom-cta h2{font-size:30px}.inner-page .article-toc{position:static}}
+/* Dejando huella: misma paleta arena y café de la franja de pasos */
+.home-about{background:linear-gradient(180deg,#f3eadf 0%,#e6d6c3 100%);border-top:1px solid #dccab5;border-bottom:1px solid #d6c3ac}
+.home-about img{box-shadow:0 18px 36px rgba(96,75,64,.22)}
+.home-about .eyebrow{color:#604b40}
+.home-about h2{color:#3b2d26}
+.home-about h2 em{color:#604b40}
+.home-about p:not(.eyebrow){color:#5d4a3f}
+.home-about .button{background:#604b40;border-color:#604b40;color:#faf7f2;box-shadow:0 8px 16px rgba(96,75,64,.28)}
+.home-about .button:hover{background:#4a392f;border-color:#4a392f}

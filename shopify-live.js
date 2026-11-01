@@ -11,14 +11,20 @@ const liveCatalogQuery = "query LiveCatalog($after: String) {\n products(first: 
 function shopifyLine(product) {
   const value = (product.productType + ' ' + product.tags.join(' ')).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   if (/sofa.?cama/.test(value)) return 'sofacamas';
+  if (/mesa.{0,3}de.{0,3}centro|mesa.?centro/.test(value)) return 'mesas-de-centro';
+  if (/comedor/.test(value)) return 'comedores';
   if (/silla|poltrona/.test(value)) return 'sillas-auxiliares';
   if (/sala|sofa/.test(value)) return 'salas';
   if (/cama|cabecero/.test(value)) return 'camas';
   return null;
 }
-const shopifyLineNames = {sofacamas:'Sofacamas', salas:'Salas', 'sillas-auxiliares':'Sillas auxiliares', camas:'Camas'};
+const shopifyLineNames = {sofacamas:'Sofacamas', salas:'Salas', 'sillas-auxiliares':'Sillas auxiliares', camas:'Camas', comedores:'Comedores', 'mesas-de-centro':'Mesas de centro'};
 function shopifyStatus(message) {
   let status = document.querySelector('#shopify-sync-status');
+  if (!message) {
+    status?.remove();
+    return;
+  }
   if (!status) {
     const host = document.querySelector('.catalog-toolbar, .line-search-toolbar');
     if (!host) return;
@@ -53,7 +59,7 @@ function updateBuyButton(container, sku, before) {
     link.className = 'button buy-link';
     link.target = '_blank';
     link.rel = 'noopener';
-    link.textContent = 'Agregar al carrito ↗';
+    link.textContent = 'Agregar al carrito';
   }
   const price = container.querySelector('.product-price, .line-meta strong');
   if (price) {
@@ -116,7 +122,7 @@ async function syncShopifyCatalog() {
     shopifyCatalogLoaded = true;
     shopifyFresh = true;
     window.dispatchEvent(new Event('shopify:updated'));
-    shopifyStatus('Catálogo actualizado desde Shopify.');
+    shopifyStatus('');
   } catch (error) {
     shopifyFresh = false;
     shopifyStatus(shopifyCatalogLoaded

@@ -3,14 +3,6 @@
   "sofacama-brisa-lino": 100,
   "sofacama-brisa-terciopelo": 100,
   "sofacama-brisa-chenilla": 100,
-  "sofacama-olivo-original": 100,
-  "sofacama-olivo-lino": 100,
-  "sofacama-olivo-terciopelo": 100,
-  "sofacama-olivo-chenilla": 100,
-  "sofacama-terracota-original": 100,
-  "sofacama-terracota-lino": 100,
-  "sofacama-terracota-terciopelo": 100,
-  "sofacama-terracota-chenilla": 100,
   "sofacama-nordico-original": 100,
   "sofacama-nordico-lino": 100,
   "sofacama-nordico-terciopelo": 100,
@@ -67,5 +59,10 @@
   "silla-vega": 100,
   "cama-serena": 100,
   "cama-cala": 100,
-  "cama-noche": 100
+  "cama-noche": 100,
+  "sofacama-rubi-beige": 100,
+  "sofacama-rubi-blanco": 100,
+  "sofacama-rubi-azul-cielo": 100,
+  "sofacama-rubi-azul-oscuro": 100,
+  "sofa-cama-polar-boucle-blanco": 100
 }

@@ -60,124 +60,323 @@ const products = [
     ]
   },
   {
-    "id": "olivo",
-    "name": "Olivo",
+    "id": "rubi",
+    "name": "Rubí",
     "category": "amplio",
-    "color": "Verde oliva",
-    "hex": "#778363",
-    "description": "Una silueta amplia en un tono natural.",
+    "color": "Beige",
+    "hex": "#c5bca8",
+    "description": "El sofacama Rubí combina un diseño acolchado, cojines de respaldo independientes y apertura en modo cama. Disponible en Beige, Blanco, Azul cielo y Azul oscuro, con acabados de brazos y cojines según la variación elegida.",
     "photos": [
       {
-        "src": "./assets/products/olivo-front.jpg",
-        "alt": "Sofá cama Olivo, vista frontal, color verde oliva",
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-frente.webp",
+        "alt": "Sofacama Rubí beige, vista frontal en sala cálida con ventana y cuadro",
         "label": "Vista frontal"
       },
       {
-        "src": "./assets/products/olivo-side.jpg",
-        "alt": "Sofá cama Olivo, vista lateral, color verde oliva",
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-lateral.webp",
+        "alt": "Sofacama Rubí beige, vista lateral de tres cuartos en sala cálida",
         "label": "Vista lateral"
       },
       {
-        "src": "./assets/products/olivo-bed.jpg",
-        "alt": "Sofá cama Olivo, abierto como cama, color verde oliva",
-        "label": "Abierto como cama"
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-abierto.webp",
+        "alt": "Sofacama Rubí beige, abierto en modo cama sin cojines de respaldo",
+        "label": "Cama abierta sin cojines"
       },
       {
-        "src": "./assets/products/olivo-detail.jpg",
-        "alt": "Sofá cama Olivo, detalle del tapizado, color verde oliva",
-        "label": "Detalle del tapizado"
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-abierto-con-cojines.webp",
+        "alt": "Sofacama Rubí beige, abierto en modo cama con cojines de respaldo",
+        "label": "Cama abierta con cojines"
+      },
+      {
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-detalle-brazo-tapizado.webp",
+        "alt": "Sofacama Rubí beige, detalle del brazo y la textura del tapizado",
+        "label": "Detalle del brazo y tapizado"
+      },
+      {
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-frente-doble-altura.webp",
+        "alt": "Sofacama Rubí beige, vista frontal en sala moderna de doble altura",
+        "label": "Vista frontal en sala de doble altura"
+      },
+      {
+        "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-lateral-doble-altura.webp",
+        "alt": "Sofacama Rubí beige, vista lateral en sala moderna de doble altura",
+        "label": "Vista lateral en sala de doble altura"
       }
     ],
     "fabrics": [
       {
-        "id": "original",
-        "name": "Terciopelo",
-        "color": "Verde oliva",
-        "hex": "#778363",
-        "image": "./assets/products/olivo-front.jpg"
+        "id": "beige",
+        "name": "",
+        "color": "Beige",
+        "hex": "#c5bca8",
+        "image": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-frente.webp",
+        "photos": [
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-frente.webp",
+            "alt": "Sofacama Rubí beige, vista frontal en sala cálida con ventana y cuadro",
+            "label": "Vista frontal"
+          },
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-lateral.webp",
+            "alt": "Sofacama Rubí beige, vista lateral de tres cuartos en sala cálida",
+            "label": "Vista lateral"
+          },
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-abierto.webp",
+            "alt": "Sofacama Rubí beige, abierto en modo cama sin cojines de respaldo",
+            "label": "Cama abierta sin cojines"
+          },
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-abierto-con-cojines.webp",
+            "alt": "Sofacama Rubí beige, abierto en modo cama con cojines de respaldo",
+            "label": "Cama abierta con cojines"
+          },
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-detalle-brazo-tapizado.webp",
+            "alt": "Sofacama Rubí beige, detalle del brazo y la textura del tapizado",
+            "label": "Detalle del brazo y tapizado"
+          },
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-frente-doble-altura.webp",
+            "alt": "Sofacama Rubí beige, vista frontal en sala moderna de doble altura",
+            "label": "Vista frontal en sala de doble altura"
+          },
+          {
+            "src": "./assets/products/rubi/beige/sofacama-rubi-beige-ambientacion-lateral-doble-altura.webp",
+            "alt": "Sofacama Rubí beige, vista lateral en sala moderna de doble altura",
+            "label": "Vista lateral en sala de doble altura"
+          }
+        ]
       },
       {
-        "id": "lino",
-        "name": "Lino",
-        "color": "Arena",
-        "hex": "#cab99c",
-        "image": "./assets/products/olivo-lino.jpg"
+        "id": "blanco",
+        "name": "",
+        "color": "Blanco",
+        "hex": "#eeeae2",
+        "image": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-frente-textura-original-v2.webp",
+        "photos": [
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-frente-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, vista frontal en sala cálida con ventana y cuadro",
+            "label": "Vista frontal"
+          },
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-lateral-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, vista lateral de tres cuartos en sala cálida",
+            "label": "Vista lateral"
+          },
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-abierto-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, abierto en modo cama sin cojines de respaldo",
+            "label": "Cama abierta sin cojines"
+          },
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-abierto-con-cojines-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, abierto en modo cama con cojines de respaldo",
+            "label": "Cama abierta con cojines"
+          },
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-detalle-brazo-tapizado-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, detalle del brazo y la textura del tapizado",
+            "label": "Detalle del brazo y tapizado"
+          },
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-frente-doble-altura-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, vista frontal en sala moderna de doble altura",
+            "label": "Vista frontal en sala de doble altura"
+          },
+          {
+            "src": "./assets/products/rubi/blanco/sofacama-rubi-blanco-ambientacion-lateral-doble-altura-textura-original-v2.webp",
+            "alt": "Sofacama Rubí blanco jaspeado gris perla, vista lateral en sala moderna de doble altura",
+            "label": "Vista lateral en sala de doble altura"
+          }
+        ]
       },
       {
-        "id": "terciopelo",
-        "name": "Terciopelo",
-        "color": "Azul petróleo",
-        "hex": "#2e6670",
-        "image": "./assets/products/olivo-terciopelo.jpg"
+        "id": "azul-cielo",
+        "name": "",
+        "color": "Azul cielo",
+        "hex": "#7897ac",
+        "image": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-frente.webp",
+        "photos": [
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-frente.webp",
+            "alt": "Sofacama Rubí azul cielo, vista frontal en sala cálida con ventana y cuadro",
+            "label": "Vista frontal"
+          },
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-lateral.webp",
+            "alt": "Sofacama Rubí azul cielo, vista lateral de tres cuartos en sala cálida",
+            "label": "Vista lateral"
+          },
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-abierto.webp",
+            "alt": "Sofacama Rubí azul cielo, abierto en modo cama sin cojines de respaldo",
+            "label": "Cama abierta sin cojines"
+          },
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-abierto-con-cojines.webp",
+            "alt": "Sofacama Rubí azul cielo, abierto en modo cama con cojines de respaldo",
+            "label": "Cama abierta con cojines"
+          },
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-detalle-brazo-tapizado.webp",
+            "alt": "Sofacama Rubí azul cielo, detalle del brazo y la textura del tapizado",
+            "label": "Detalle del brazo y tapizado"
+          },
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-frente-doble-altura.webp",
+            "alt": "Sofacama Rubí azul cielo, vista frontal en sala moderna de doble altura",
+            "label": "Vista frontal en sala de doble altura"
+          },
+          {
+            "src": "./assets/products/rubi/azul-cielo/sofacama-rubi-azul-cielo-ambientacion-lateral-doble-altura.webp",
+            "alt": "Sofacama Rubí azul cielo, vista lateral en sala moderna de doble altura",
+            "label": "Vista lateral en sala de doble altura"
+          }
+        ]
       },
       {
-        "id": "chenilla",
-        "name": "Chenilla",
-        "color": "Terracota",
-        "hex": "#b96c4e",
-        "image": "./assets/products/olivo-chenilla.jpg"
+        "id": "azul-oscuro",
+        "name": "",
+        "color": "Azul oscuro",
+        "hex": "#293f66",
+        "image": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-frente.webp",
+        "photos": [
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-frente.webp",
+            "alt": "Sofacama Rubí azul oscuro, vista frontal en sala cálida con ventana y cuadro",
+            "label": "Vista frontal"
+          },
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-lateral.webp",
+            "alt": "Sofacama Rubí azul oscuro, vista lateral de tres cuartos en sala cálida",
+            "label": "Vista lateral"
+          },
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-abierto.webp",
+            "alt": "Sofacama Rubí azul oscuro, abierto en modo cama sin cojines de respaldo",
+            "label": "Cama abierta sin cojines"
+          },
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-abierto-con-cojines.webp",
+            "alt": "Sofacama Rubí azul oscuro, abierto en modo cama con cojines de respaldo",
+            "label": "Cama abierta con cojines"
+          },
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-detalle-brazo-tapizado.webp",
+            "alt": "Sofacama Rubí azul oscuro, detalle del brazo y la textura del tapizado",
+            "label": "Detalle del brazo y tapizado"
+          },
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-frente-doble-altura.webp",
+            "alt": "Sofacama Rubí azul oscuro, vista frontal en sala moderna de doble altura",
+            "label": "Vista frontal en sala de doble altura"
+          },
+          {
+            "src": "./assets/products/rubi/azul-oscuro/sofacama-rubi-azul-oscuro-ambientacion-lateral-doble-altura.webp",
+            "alt": "Sofacama Rubí azul oscuro, vista lateral en sala moderna de doble altura",
+            "label": "Vista lateral en sala de doble altura"
+          }
+        ]
       }
     ]
   },
   {
-    "id": "terracota",
-    "name": "Terracota",
+    "id": "polar",
+    "name": "Sofá cama Polar",
     "category": "color",
-    "color": "Terracota",
-    "hex": "#b16b4a",
-    "description": "Textura y calidez para darle carácter a tu sala.",
+    "color": "Blanco",
+    "hex": "#f1eee6",
+    "description": "El sofá cama Polar en bouclé blanco tiene brazos redondeados, dos cojines de respaldo y un asiento continuo. Su apertura permite transformarlo en cama.",
     "photos": [
       {
-        "src": "./assets/products/terracota-front.jpg",
-        "alt": "Sofá cama Terracota, vista frontal, color terracota",
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-frente.webp",
+        "alt": "Sofá cama Polar blanco, vista frontal.",
         "label": "Vista frontal"
       },
       {
-        "src": "./assets/products/terracota-side.jpg",
-        "alt": "Sofá cama Terracota, vista lateral, color terracota",
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-lateral.webp",
+        "alt": "Sofá cama Polar blanco, vista lateral de tres cuartos.",
         "label": "Vista lateral"
       },
       {
-        "src": "./assets/products/terracota-bed.jpg",
-        "alt": "Sofá cama Terracota, abierto como cama, color terracota",
-        "label": "Abierto como cama"
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-abierto.webp",
+        "alt": "Sofá cama Polar blanco abierto en modo cama sin cojines de respaldo.",
+        "label": "Cama abierta sin cojines"
       },
       {
-        "src": "./assets/products/terracota-detail.jpg",
-        "alt": "Sofá cama Terracota, detalle del tapizado, color terracota",
-        "label": "Detalle del tapizado"
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-abierto-con-cojines.webp",
+        "alt": "Sofá cama Polar blanco abierto en modo cama con cojines de respaldo.",
+        "label": "Cama abierta con cojines"
+      },
+      {
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-detalle-brazo-tapizado.webp",
+        "alt": "Sofá cama Polar blanco, detalle del brazo y del tapizado.",
+        "label": "Detalle del brazo y tapizado"
+      },
+      {
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-frente-doble-altura.webp",
+        "alt": "Sofá cama Polar blanco, vista frontal en sala de doble altura.",
+        "label": "Vista frontal en segundo ambiente"
+      },
+      {
+        "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-lateral-doble-altura.webp",
+        "alt": "Sofá cama Polar blanco, vista lateral en sala de doble altura.",
+        "label": "Vista lateral en segundo ambiente"
       }
     ],
     "fabrics": [
       {
-        "id": "original",
-        "name": "Pana",
-        "color": "Terracota",
-        "hex": "#b16b4a",
-        "image": "./assets/products/terracota-front.jpg"
-      },
-      {
-        "id": "lino",
-        "name": "Lino",
-        "color": "Arena",
-        "hex": "#cab99c",
-        "image": "./assets/products/terracota-lino.jpg"
-      },
-      {
-        "id": "terciopelo",
-        "name": "Terciopelo",
-        "color": "Azul petróleo",
-        "hex": "#2e6670",
-        "image": "./assets/products/terracota-terciopelo.jpg"
-      },
-      {
-        "id": "chenilla",
-        "name": "Chenilla",
-        "color": "Mostaza",
-        "hex": "#bf923d",
-        "image": "./assets/products/terracota-chenilla.jpg"
+        "id": "boucle-blanco",
+        "name": "Bouclé",
+        "color": "Blanco",
+        "hex": "#f1eee6",
+        "image": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-frente.webp",
+        "photos": [
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-frente.webp",
+            "alt": "Sofá cama Polar blanco, vista frontal.",
+            "label": "Vista frontal"
+          },
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-lateral.webp",
+            "alt": "Sofá cama Polar blanco, vista lateral de tres cuartos.",
+            "label": "Vista lateral"
+          },
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-abierto.webp",
+            "alt": "Sofá cama Polar blanco abierto en modo cama sin cojines de respaldo.",
+            "label": "Cama abierta sin cojines"
+          },
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-abierto-con-cojines.webp",
+            "alt": "Sofá cama Polar blanco abierto en modo cama con cojines de respaldo.",
+            "label": "Cama abierta con cojines"
+          },
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-detalle-brazo-tapizado.webp",
+            "alt": "Sofá cama Polar blanco, detalle del brazo y del tapizado.",
+            "label": "Detalle del brazo y tapizado"
+          },
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-frente-doble-altura.webp",
+            "alt": "Sofá cama Polar blanco, vista frontal en sala de doble altura.",
+            "label": "Vista frontal en segundo ambiente"
+          },
+          {
+            "src": "./assets/products/polar/sofa-cama-polar-boucle-blanco-ambientacion-lateral-doble-altura.webp",
+            "alt": "Sofá cama Polar blanco, vista lateral en sala de doble altura.",
+            "label": "Vista lateral en segundo ambiente"
+          }
+        ],
+        "sku": "sofa-cama-polar-boucle-blanco",
+        "variantId": "gid://shopify/ProductVariant/67848189870214"
       }
-    ]
+    ],
+    "shopifyProductId": "gid://shopify/Product/15461604130950",
+    "handle": "sofa-cama-polar",
+    "sku": "sofa-cama-polar-boucle-blanco"
   },
   {
     "id": "nordico",

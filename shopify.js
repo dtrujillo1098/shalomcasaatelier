@@ -4,8 +4,8 @@ const shopifyStore = 'xxwsyt-j3.myshopify.com';
 const shopifyEnabled = true || new URLSearchParams(window.location.search).get('shopify') === '1';
 const shopifyVariants = {
   'sofacama-brisa-original': '67848184955014', 'sofacama-brisa-lino': '67848184987782', 'sofacama-brisa-terciopelo': '67848185020550', 'sofacama-brisa-chenilla': '67848185053318',
-  'sofacama-olivo-original': '67848189739142', 'sofacama-olivo-lino': '67848189771910', 'sofacama-olivo-terciopelo': '67848189804678', 'sofacama-olivo-chenilla': '67848189837446',
-  'sofacama-terracota-original': '67848189870214', 'sofacama-terracota-lino': '67848189902982', 'sofacama-terracota-terciopelo': '67848189935750', 'sofacama-terracota-chenilla': '67848189968518',
+  'sofacama-rubi-beige': '67848189739142', 'sofacama-rubi-blanco': '67848189771910', 'sofacama-rubi-azul-cielo': '67848189804678', 'sofacama-rubi-azul-oscuro': '67848189837446',
+  'sofa-cama-polar-boucle-blanco': '67848189870214',
   'sofacama-nordico-original': '67848191344774', 'sofacama-nordico-lino': '67848191377542', 'sofacama-nordico-terciopelo': '67848191410310', 'sofacama-nordico-chenilla': '67848191443078',
   'sofacama-bahia-original': '67848194392198', 'sofacama-bahia-lino': '67848194424966', 'sofacama-bahia-terciopelo': '67848194457734', 'sofacama-bahia-chenilla': '67848194490502',
   'sofacama-luna-original': '67848194523270', 'sofacama-luna-lino': '67848194556038', 'sofacama-luna-terciopelo': '67848194588806', 'sofacama-luna-chenilla': '67848194621574',
