@@ -273,7 +273,6 @@ footer .footer-legal a{opacity:.92}
 }
 /* Pie de página en celular: sin las categorías de producto y mejor proporcionado */
 @media(max-width:960px){
-  footer .footer-top nav a:nth-child(-n+6){display:none}
   footer .footer-top{gap:22px;padding-bottom:26px}
   footer .footer-top nav{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:16px;font-size:13px}
   footer .footer-legal{flex-direction:column;align-items:flex-start;gap:12px;padding:0 0 24px;font-size:12px}
@@ -344,7 +343,7 @@ body.site-home .home-about{background:var(--paper);border-top:0;border-bottom:0}
 /* Pie en celular: sin "Inspiración"; la lista (izq.) y los enlaces legales (der.) quedan en la misma fila */
 @media(max-width:960px){
   footer{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;align-items:start}
-  footer .footer-top nav a:nth-child(9){display:none}
+  footer .footer-top nav a:nth-child(4){display:none}
   footer .footer-top nav{grid-column:1;grid-row:1;grid-template-columns:max-content;row-gap:14px;margin-bottom:26px;font-size:12px}
   footer .footer-legal{grid-column:2;grid-row:1;gap:14px;padding:0;margin-bottom:26px}
   footer .footer-top nav a,footer .footer-legal a{font-size:12px;line-height:1.5}
