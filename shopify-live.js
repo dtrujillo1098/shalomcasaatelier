@@ -14,20 +14,21 @@ function shopifyLine(product) {
   if (/aparador|biffe|consola|recibidor/.test(value)) return 'aparadores';
   if (/escritorio/.test(value)) return 'escritorios';
   if (/pieza.{0,3}auxiliar|perchero|butaco|banca/.test(value)) return 'piezas-auxiliares';
-  if (/dormitorio|comoda|tocador/.test(value)) return 'camas';
-  if (/mesa.{0,3}auxiliar/.test(value)) return 'mesas-de-centro';
+  if (/tocador/.test(value)) return 'tocadores';
+  if (/dormitorio|comoda/.test(value)) return 'camas';
+  if (/mesa.{0,3}auxiliar/.test(value)) return 'salas';
   if (/lampara|luminaria|iluminacion|aplique|plafon/.test(value)) return 'iluminacion';
   if (/decoracion|espejo|cuadro|jarron|florero|cojin|tapete|alfombra/.test(value)) return 'decoracion';
   if (/silla.{0,30}(comedor|bar)|taburete|banco/.test(value)) return 'comedores';
   if (/mesa.{0,3}de.{0,3}noche|nochero|velador/.test(value)) return 'camas';
-  if (/mesa.{0,3}de.{0,3}centro|mesa.?centro/.test(value)) return 'mesas-de-centro';
+  if (/mesa.{0,3}de.{0,3}centro|mesa.?centro/.test(value)) return 'salas';
   if (/comedor/.test(value)) return 'comedores';
-  if (/silla|poltrona/.test(value)) return 'sillas-auxiliares';
+  if (/silla|poltrona/.test(value)) return 'salas';
   if (/sala|sofa/.test(value)) return 'salas';
   if (/cama|cabecero/.test(value)) return 'camas';
   return null;
 }
-const shopifyLineNames = {sofacamas:'Sofacamas', salas:'Salas', 'sillas-auxiliares':'Sillas auxiliares', camas:'Camas', comedores:'Comedores', 'mesas-de-centro':'Mesas de centro', aparadores:'Aparadores y consolas', escritorios:'Escritorios', 'piezas-auxiliares':'Piezas auxiliares', decoracion:'Decoración', iluminacion:'Iluminación'};
+const shopifyLineNames = {sofacamas:'Sofacamas', salas:'Salas', camas:'Camas', comedores:'Comedores', aparadores:'Aparadores y consolas', escritorios:'Escritorios', tocadores:'Tocadores', 'piezas-auxiliares':'Piezas auxiliares', decoracion:'Decoración', iluminacion:'Iluminación'};
 function shopifyStatus(message) {
   let status = document.querySelector('#shopify-sync-status');
   if (!message) {

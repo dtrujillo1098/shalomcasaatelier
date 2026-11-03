@@ -21,11 +21,6 @@ nav?.querySelectorAll('.nav-item').forEach(item => {
   const parent = item.querySelector('.nav-parent');
   const sub = item.querySelector('.submenu-col');
   if(!parent || !sub) return;
-  const all = document.createElement('a');
-  all.className = 'submenu-all';
-  all.href = parent.getAttribute('href');
-  all.textContent = 'Ver todo';
-  sub.prepend(all);
   const setOpen = open => { item.classList.toggle('is-open', open); parent.setAttribute('aria-expanded', String(open)); };
   setOpen(compactNav.matches && parent.classList.contains('is-current'));
   parent.addEventListener('click', event => {
@@ -33,7 +28,6 @@ nav?.querySelectorAll('.nav-item').forEach(item => {
     event.preventDefault();
     setOpen(!item.classList.contains('is-open'));
   });
-  all.addEventListener('click', closeMenu);
 });
 document.addEventListener('keydown', event => {
   if(event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
@@ -62,13 +56,12 @@ document.querySelector('#cart-explore')?.addEventListener('click', () => {
 const categoryPages = [
   {name:'Sofacamas',file:'sofacamas.html'},
   {name:'Salas',file:'salas.html'},
-  {name:'Sillas auxiliares',file:'sillas-auxiliares.html'},
   {name:'Camas',file:'camas.html'},
   {name:'Comedores',file:'comedores.html'},
-  {name:'Mesas de centro',file:'mesas-de-centro.html'},
   {name:'Aparadores y consolas',file:'aparadores.html'},
   {name:'Escritorios',file:'escritorios.html'},
-  {name:'Piezas auxiliares',file:'piezas-auxiliares.html'}
+  {name:'Piezas auxiliares',file:'piezas-auxiliares.html'},
+  {name:'Tocadores',file:'tocadores.html'}
 ];
 const allSearchProducts = [];
 const searchDialog = document.querySelector('#search-dialog');
@@ -108,6 +101,8 @@ const liveInPage = product => livePage === 'sale' ? product.tags.some(tag => /^(
 const liveSubcategories = {
   'sofas': {label:'Sofás', test:type => /puestos|(^|\s)sofas?(\s|$)/.test(type)},
   'en-l-y-modulares': {label:'Sofás en L y modulares', test:type => /modular|(^|\s)en l(\s|$)/.test(type)},
+  'mesas-de-centro': {label:'Mesas de centro', test:type => /mesa/.test(type)},
+  'sillas-auxiliares': {label:'Sillas auxiliares', test:type => /silla|poltrona/.test(type)},
   'comedor': {label:'Comedor', test:type => !/silla|taburete|banco/.test(type)},
   'sillas-de-comedor': {label:'Sillas de comedor', test:type => /silla/.test(type) && /comedor/.test(type)},
   'sillas-de-bar': {label:'Sillas de bar', test:type => /silla|taburete|banco/.test(type) && /bar|taburete|banco/.test(type)},
@@ -230,7 +225,7 @@ function filterLiveCatalog() {
   let count = 0;
   liveGrid.querySelectorAll('[data-live-product]').forEach(card => {
     const product = shopifyLiveProducts.find(item => item.id === card.dataset.liveProduct);
-    card.hidden = !product || (liveSub && !liveSub.test(normalize(product.productType || ''))) || !(liveCategory === 'all' || product.tags.includes(liveCategory)) || !normalize([product.title, product.description, ...product.variants.map(variant => variant.title)].join(' ')).includes(query);
+    card.hidden = !product || (liveSub && !liveSub.test(normalize(product.productType || ''))) || (livePage === 'salas' && !liveSub && /mesa|silla|poltrona/.test(normalize(product.productType || ''))) ||!(liveCategory === 'all' || product.tags.includes(liveCategory)) || !normalize([product.title, product.description, ...product.variants.map(variant => variant.title)].join(' ')).includes(query);
     if (!card.hidden) count++;
   });
   liveSubNote?.querySelector('.sub-filter-empty')?.toggleAttribute('hidden', count > 0);
@@ -409,7 +404,7 @@ if(slides.length) {
   document.addEventListener('visibilitychange',startRotation); startRotation();
 }
 if(document.body.dataset.page === 'inicio') {
-  const legacyPages = {coleccion:'sofacamas.html',salas:'salas.html','sillas-auxiliares':'sillas-auxiliares.html',camas:'camas.html',nosotros:'nosotros.html',guia:'sofacamas.html#guia',inspiracion:'blog/index.html',blog:'blog/index.html'};
+  const legacyPages = {coleccion:'sofacamas.html',salas:'salas.html','sillas-auxiliares':'salas.html?sub=sillas-auxiliares',camas:'camas.html',nosotros:'nosotros.html',guia:'sofacamas.html#guia',inspiracion:'blog/index.html',blog:'blog/index.html'};
   const destination = legacyPages[window.location.hash.slice(1)];
   if(destination) window.location.replace(siteUrl(destination));
 }
