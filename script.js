@@ -106,7 +106,7 @@ let liveSelectedId = null, livePhotoIndex = 0, liveCategory = 'all';
 // Subcategorías del menú: se filtran por el tipo de producto de Shopify (parámetro ?sub=).
 const liveInPage = product => livePage === 'sale' ? product.tags.some(tag => /^(sale|oferta|ofertas)$/i.test(tag)) : product.line === livePage;
 const liveSubcategories = {
-  'sofas': {label:'Sofás', test:type => /puestos/.test(type)},
+  'sofas': {label:'Sofás', test:type => /puestos|(^|\s)sofas?(\s|$)/.test(type)},
   'en-l-y-modulares': {label:'Sofás en L y modulares', test:type => /modular|(^|\s)en l(\s|$)/.test(type)},
   'comedor': {label:'Comedor', test:type => !/silla|taburete|banco/.test(type)},
   'sillas-de-comedor': {label:'Sillas de comedor', test:type => /silla/.test(type) && /comedor/.test(type)},
