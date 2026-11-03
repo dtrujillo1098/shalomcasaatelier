@@ -10,7 +10,16 @@ let shopifyFresh = false;
 const liveCatalogQuery = "query LiveCatalog($after: String) {\n products(first: 100, after: $after) {\n  nodes { id handle title description productType tags\n   images(first: 100) { nodes { url altText } }\n   variants(first: 250) { nodes { id sku title availableForSale price { amount currencyCode } image { url altText } selectedOptions { name value } } pageInfo { hasNextPage } }\n  }\n  pageInfo { hasNextPage endCursor }\n }\n}";
 function shopifyLine(product) {
   const value = (product.productType + ' ' + product.tags.join(' ')).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  if (/sofa.?cama/.test(value)) return 'sofacamas';
+  if (/sofas?.?cama/.test(value)) return 'sofacamas';
+  if (/aparador|biffe|consola|recibidor/.test(value)) return 'aparadores';
+  if (/escritorio/.test(value)) return 'escritorios';
+  if (/pieza.{0,3}auxiliar|perchero|butaco|banca/.test(value)) return 'piezas-auxiliares';
+  if (/dormitorio|comoda|tocador/.test(value)) return 'camas';
+  if (/mesa.{0,3}auxiliar/.test(value)) return 'mesas-de-centro';
+  if (/lampara|luminaria|iluminacion|aplique|plafon/.test(value)) return 'iluminacion';
+  if (/decoracion|espejo|cuadro|jarron|florero|cojin|tapete|alfombra/.test(value)) return 'decoracion';
+  if (/silla.{0,30}(comedor|bar)|taburete|banco/.test(value)) return 'comedores';
+  if (/mesa.{0,3}de.{0,3}noche|nochero|velador/.test(value)) return 'camas';
   if (/mesa.{0,3}de.{0,3}centro|mesa.?centro/.test(value)) return 'mesas-de-centro';
   if (/comedor/.test(value)) return 'comedores';
   if (/silla|poltrona/.test(value)) return 'sillas-auxiliares';
@@ -18,7 +27,7 @@ function shopifyLine(product) {
   if (/cama|cabecero/.test(value)) return 'camas';
   return null;
 }
-const shopifyLineNames = {sofacamas:'Sofacamas', salas:'Salas', 'sillas-auxiliares':'Sillas auxiliares', camas:'Camas', comedores:'Comedores', 'mesas-de-centro':'Mesas de centro'};
+const shopifyLineNames = {sofacamas:'Sofacamas', salas:'Salas', 'sillas-auxiliares':'Sillas auxiliares', camas:'Camas', comedores:'Comedores', 'mesas-de-centro':'Mesas de centro', aparadores:'Aparadores y consolas', escritorios:'Escritorios', 'piezas-auxiliares':'Piezas auxiliares', decoracion:'Decoración', iluminacion:'Iluminación'};
 function shopifyStatus(message) {
   let status = document.querySelector('#shopify-sync-status');
   if (!message) {

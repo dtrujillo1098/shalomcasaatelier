@@ -116,3 +116,57 @@ footer .footer-contact a:hover{text-decoration:none}
 footer .footer-contact a:hover span{text-decoration:underline;text-underline-offset:5px}
 @media(min-width:981px){footer .footer-top nav.footer-contact{grid-template-rows:none;grid-auto-flow:row;row-gap:16px}}
 @media(max-width:980px){footer .footer-contact a{font-size:12px;max-width:200px}footer .footer-contact{padding-right:14px}}
+
+/* Menú principal con subcategorías. */
+.header nav .nav-item>a{display:flex;align-items:center;min-height:48px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;color:#3d302a;font-weight:600}
+.header nav .nav-item>a:hover,.header nav .nav-item>a.is-current{color:#6b4d38;text-decoration:underline;text-underline-offset:6px}
+.header nav .nav-group>a.nav-sale{color:#a8472f;font-weight:700}
+.submenu{display:none;padding:0 0 10px 14px}
+.nav-item.is-open>.submenu{display:block}
+.submenu-all{font-weight:600}
+.submenu-title{display:none}
+.submenu a{display:block;padding:9px 0;font-size:14px;line-height:1.4;color:#6b5a4f;font-weight:400;border:0}
+.submenu a:hover,.submenu a[aria-current="page"]{color:#3d302a;text-decoration:underline;text-underline-offset:5px}
+.sub-filter-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin:14px 0 6px;font-size:13px;color:var(--muted)}
+.sub-filter-note strong{color:var(--ink);font-weight:600}
+.sub-filter-note a{color:#7a5944;text-decoration:underline;text-underline-offset:4px}
+.sub-filter-empty{flex-basis:100%;padding:18px 0;font-size:14px;color:var(--muted)}
+
+@media(min-width:981px){
+  .header .nav-group{align-self:stretch;align-items:stretch}
+  .nav-item{display:flex;align-items:center;position:static}
+  .header nav .nav-item>a,.header nav .nav-group>a{display:inline-flex;align-items:center;min-height:0;padding:0;border-bottom:0;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+  .header nav .nav-group>a{align-self:center}
+  .header nav .nav-group>a.nav-sale{padding:7px 14px;border-radius:999px;background:#a8472f;color:#fff!important;letter-spacing:.1em;font-weight:600}
+  .header nav .nav-group>a.nav-sale:hover{background:#8d3a25;text-decoration:none}
+  .submenu{position:absolute;left:0;right:0;top:100%;display:block;padding:34px 6% 40px;background:#faf7f2;border-top:1px solid var(--line);box-shadow:0 24px 40px rgba(61,48,42,.14);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease,visibility .18s}
+  .nav-item:hover>.submenu,.nav-item:focus-within>.submenu{opacity:1;visibility:visible;transform:none}
+  .submenu-col{display:inline-block;min-width:260px;margin-right:80px;vertical-align:top}
+  .submenu-title{display:block;margin:0 0 18px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-decoration:underline;text-underline-offset:5px;color:#3d302a}
+  .submenu a{padding:6px 0;font-size:15px;text-transform:none;letter-spacing:0}
+  body.site-home .header:not(.is-scrolled) #main-nav .nav-item>a{color:#fff}
+  body.site-home .header:not(.is-scrolled) #main-nav .nav-group>a.nav-sale{color:#fff}
+}
+
+/* Subcategorías sin recuadro: se despliegan debajo de cada categoría, sin fondo. */
+@media(min-width:981px){
+  .nav-item{position:relative}
+  .submenu{left:0;right:auto;top:100%;padding:4px 0 0;background:none;border:0;box-shadow:none;min-width:max-content;text-align:left;transform:translateY(-4px)}
+  .submenu-title{display:none}
+  .submenu-col{display:block;min-width:0;margin:0}
+  .submenu a{padding:6px 0;font-size:13px;font-weight:500;line-height:1.4;white-space:nowrap;color:#3d302a;text-shadow:0 0 10px rgba(250,247,242,.95),0 0 3px rgba(250,247,242,.9)}
+  .submenu a:hover,.submenu a[aria-current="page"]{color:#6b4d38}
+  body.site-home .header:not(.is-scrolled) #main-nav .submenu a{color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.55)}
+  body.site-home .header:not(.is-scrolled) #main-nav .submenu a:hover{color:#f3dfc6}
+}
+@media(min-width:981px){
+  main .hero-copy,main .page-intro{transition:opacity .18s ease}
+  .header:has(.nav-item:is(:hover,:focus-within))~main :is(.hero-copy,.page-intro){opacity:.08}
+}
+
+@media(max-width:980px){
+  .header nav .nav-item>a.nav-parent{justify-content:space-between}
+  .nav-parent::after{content:"";flex:0 0 auto;width:8px;height:8px;margin:0 6px 4px 12px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s ease}
+  .nav-item.is-open>.nav-parent::after{margin-bottom:-2px;transform:rotate(-135deg)}
+}
+@media(min-width:981px){.submenu-all{display:none}}

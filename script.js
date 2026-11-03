@@ -14,7 +14,27 @@ menu?.addEventListener('click', () => {
   menu.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   nav.classList.toggle('is-open', open);
 });
-nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+nav?.querySelectorAll('a:not(.nav-parent)').forEach(link => link.addEventListener('click', closeMenu));
+// Celular: las subcategorías se despliegan al tocar la categoría.
+const compactNav = window.matchMedia('(max-width:980px)');
+nav?.querySelectorAll('.nav-item').forEach(item => {
+  const parent = item.querySelector('.nav-parent');
+  const sub = item.querySelector('.submenu-col');
+  if(!parent || !sub) return;
+  const all = document.createElement('a');
+  all.className = 'submenu-all';
+  all.href = parent.getAttribute('href');
+  all.textContent = 'Ver todo';
+  sub.prepend(all);
+  const setOpen = open => { item.classList.toggle('is-open', open); parent.setAttribute('aria-expanded', String(open)); };
+  setOpen(compactNav.matches && parent.classList.contains('is-current'));
+  parent.addEventListener('click', event => {
+    if(!compactNav.matches) return;
+    event.preventDefault();
+    setOpen(!item.classList.contains('is-open'));
+  });
+  all.addEventListener('click', closeMenu);
+});
 document.addEventListener('keydown', event => {
   if(event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
 });
@@ -45,7 +65,10 @@ const categoryPages = [
   {name:'Sillas auxiliares',file:'sillas-auxiliares.html'},
   {name:'Camas',file:'camas.html'},
   {name:'Comedores',file:'comedores.html'},
-  {name:'Mesas de centro',file:'mesas-de-centro.html'}
+  {name:'Mesas de centro',file:'mesas-de-centro.html'},
+  {name:'Aparadores y consolas',file:'aparadores.html'},
+  {name:'Escritorios',file:'escritorios.html'},
+  {name:'Piezas auxiliares',file:'piezas-auxiliares.html'}
 ];
 const allSearchProducts = [];
 const searchDialog = document.querySelector('#search-dialog');
@@ -80,6 +103,30 @@ const liveSofa = !!document.querySelector('#products');
 const livePage = document.body.dataset.page;
 const liveSelections = new Map();
 let liveSelectedId = null, livePhotoIndex = 0, liveCategory = 'all';
+// Subcategorías del menú: se filtran por el tipo de producto de Shopify (parámetro ?sub=).
+const liveInPage = product => livePage === 'sale' ? product.tags.some(tag => /^(sale|oferta|ofertas)$/i.test(tag)) : product.line === livePage;
+const liveSubcategories = {
+  'sofas': {label:'Sofás', test:type => /puestos/.test(type)},
+  'en-l-y-modulares': {label:'Sofás en L y modulares', test:type => /modular|(^|\s)en l(\s|$)/.test(type)},
+  'comedor': {label:'Comedor', test:type => !/silla|taburete|banco/.test(type)},
+  'sillas-de-comedor': {label:'Sillas de comedor', test:type => /silla/.test(type) && /comedor/.test(type)},
+  'sillas-de-bar': {label:'Sillas de bar', test:type => /silla|taburete|banco/.test(type) && /bar|taburete|banco/.test(type)},
+  'cama': {label:'Cama', test:type => !/noche|nochero|velador/.test(type)},
+  'mesas-de-noche': {label:'Mesa de noche', test:type => /noche|nochero|velador/.test(type)}
+};
+const liveSub = liveGrid ? liveSubcategories[new URLSearchParams(window.location.search).get('sub')] : null;
+let liveSubNote = null;
+if(liveSub) {
+  liveSubNote = document.createElement('p');
+  liveSubNote.className = 'sub-filter-note';
+  liveSubNote.innerHTML = '<span>Subcategoría: <strong></strong></span> <a href="' + window.location.pathname + '">Ver toda la categoría</a><span class="sub-filter-empty" hidden>Pronto tendremos productos en esta subcategoría.</span>';
+  liveSubNote.querySelector('strong').textContent = liveSub.label;
+  document.querySelector('.line-search-toolbar, .catalog-toolbar')?.insertAdjacentElement('afterend', liveSubNote);
+}
+document.querySelectorAll('.submenu a').forEach(link => {
+  const target = new URL(link.href, window.location.href);
+  if(target.pathname === window.location.pathname && target.search === window.location.search) link.setAttribute('aria-current', 'page');
+});
 const liveDialog = document.querySelector('#product-dialog, #line-dialog');
 const liveCardTemplate = liveGrid?.querySelector('article')?.cloneNode(true);
 function selectedLiveVariant(product) {
@@ -183,9 +230,10 @@ function filterLiveCatalog() {
   let count = 0;
   liveGrid.querySelectorAll('[data-live-product]').forEach(card => {
     const product = shopifyLiveProducts.find(item => item.id === card.dataset.liveProduct);
-    card.hidden = !product || !(liveCategory === 'all' || product.tags.includes(liveCategory)) || !normalize([product.title, product.description, ...product.variants.map(variant => variant.title)].join(' ')).includes(query);
+    card.hidden = !product || (liveSub && !liveSub.test(normalize(product.productType || ''))) || !(liveCategory === 'all' || product.tags.includes(liveCategory)) || !normalize([product.title, product.description, ...product.variants.map(variant => variant.title)].join(' ')).includes(query);
     if (!card.hidden) count++;
   });
+  liveSubNote?.querySelector('.sub-filter-empty')?.toggleAttribute('hidden', count > 0);
   const empty = document.querySelector('#empty-results, #line-empty');
   if (empty) empty.hidden = count > 0;
   const countLabel = document.querySelector('#result-count, #line-search-status');
@@ -194,7 +242,7 @@ function filterLiveCatalog() {
 function renderLiveCatalog() {
   if (!liveGrid || !liveCardTemplate) return;
   liveGrid.replaceChildren();
-  const list = shopifyLiveProducts.filter(product => product.line === livePage);
+  const list = shopifyLiveProducts.filter(liveInPage);
   for (const product of list) {
     const card = liveCardTemplate.cloneNode(true);
     card.dataset.liveProduct = product.id;
@@ -236,7 +284,7 @@ function renderLiveCatalog() {
 }
 function renderLiveDetail() {
   const product = shopifyLiveProducts.find(item => item.id === liveSelectedId);
-  if (!product || product.line !== livePage) { liveDialog?.close(); liveSelectedId = null; return; }
+  if (!product || !liveInPage(product)) { liveDialog?.close(); liveSelectedId = null; return; }
   const variant = selectedLiveVariant(product);
   document.querySelector('#detail-title, #line-detail-title').textContent = product.title;
   document.querySelector('#detail-description, #line-detail-description').textContent = product.description;
