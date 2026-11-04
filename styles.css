@@ -460,3 +460,11 @@ footer .brand-logo.logo7{color:#e7d9c8}
   .header nav .nav-group>a{font-size:13px;letter-spacing:.09em}
   .header .nav-group{gap:26px}
 }
+
+/* Logo Shalom Casa Atelier */
+.brand-logo.logo7 img.logo7-mark.logo-shalom{width:auto;height:66px;max-width:100%;object-fit:contain}
+footer .brand-logo.logo7 img.logo7-mark.logo-shalom{height:84px}
+@media(max-width:960px){
+  .brand-logo.logo7 img.logo7-mark.logo-shalom{height:52px}
+  footer .brand-logo.logo7 img.logo7-mark.logo-shalom{height:68px}
+}
