@@ -409,15 +409,6 @@ if(document.body.dataset.page === 'inicio') {
   if(destination) window.location.replace(siteUrl(destination));
 }
 
-// Guía de 3 pasos: aparece de izquierda a derecha cuando entra en pantalla
-const stepsGuide = document.querySelector('.benefits');
-if (stepsGuide && 'IntersectionObserver' in window) {
-  stepsGuide.classList.add('steps-ready');
-  new IntersectionObserver((entries, observer) => {
-    if (entries.some(entry => entry.isIntersecting)) { stepsGuide.classList.add('is-visible'); observer.disconnect(); }
-  }, {threshold:.4}).observe(stepsGuide);
-}
-
 // Tarjeta 1993 de Nosotros: la huella y la firma se dibujan al verla
 const aboutYear = document.querySelector('.about-year');
 if (aboutYear && 'IntersectionObserver' in window) {
@@ -439,19 +430,37 @@ if (homeHeader) {
 const featuredGrid = document.querySelector('#featured-grid');
 if (featuredGrid) {
   const money = new Intl.NumberFormat('es-CO', {style:'currency', currency:'COP', maximumFractionDigits:0});
+  // Un destacado por cada categoría de la portada. photo: posición de la foto de ambiente en Shopify (0 = la primera).
+  // Si el modelo elegido no está en Shopify, se usa otro de esa línea que no esté ya en la lista, con su primera foto.
+  const featuredPicks = [
+    {line:'sofacamas', id:'rubi', photo:0},
+    {line:'salas', id:'sofa-kalahari', photo:1},
+    {line:'salas', id:'silla-auxiliar-versa', photo:1},
+    {line:'camas', id:'dormitorio-lux', photo:1},
+    {line:'comedores', id:'juego-comedor-jamaica', photo:0},
+    {line:'salas', id:'mesa-centro-sinfonia', photo:1}
+  ];
   window.addEventListener('shopify:updated', () => {
-    const items = shopifyLiveProducts.filter(product => product.line === 'sofacamas').slice(0, 4);
+    const used = new Set(featuredPicks.map(pick => pick.id));
+    const items = featuredPicks.map(pick => {
+      const product = shopifyLiveProducts.find(item => item.localId === pick.id && item.line === pick.line);
+      if (product) return {product, photo:pick.photo};
+      const fallback = shopifyLiveProducts.find(item => item.line === pick.line && !used.has(item.localId));
+      if (fallback) used.add(fallback.localId);
+      return {product:fallback, photo:0};
+    }).filter(item => item.product);
     featuredGrid.replaceChildren();
-    for (const product of items) {
+    for (const {product, photo} of items) {
       const variant = product.variants[0];
       const link = document.createElement('a');
       link.className = 'featured-card';
-      link.href = siteUrl('sofacamas.html') + '?producto=' + encodeURIComponent(product.localId);
+      link.href = siteUrl(product.line + '.html') + '?producto=' + encodeURIComponent(product.localId);
       const frame = document.createElement('div');
       frame.className = 'featured-image';
       const img = document.createElement('img');
       img.loading = 'lazy'; img.width = 900; img.height = 900;
-      setLiveImage(img, liveImageUrl(product, liveVariantPhotos(product, variant)[0]?.url, 900), product.title);
+      const photos = liveVariantPhotos(product, variant);
+      setLiveImage(img, liveImageUrl(product, (photos[photo] || photos[0])?.url, 900), product.title);
       frame.append(img);
       const name = document.createElement('h3'); name.textContent = product.title;
       const price = document.createElement('p'); price.className = 'featured-price';
