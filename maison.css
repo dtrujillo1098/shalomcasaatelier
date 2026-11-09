@@ -1,0 +1,88 @@
+/* Rediseño de la portada inspirado en la plantilla Maison: titular editorial, colecciones destacadas,
+   tarjetas de producto y rejilla asimétrica de categorías. Solo afecta a index.html. */
+:root{--m-terracota:#a95c3c;--m-terracota-h:#8f4b2f;--m-crema:#f6f1e9;--m-tinta:#2b2420;--m-suave:#6f6258;--m-display:'Cormorant Garamond','Playfair Display',Georgia,serif}
+
+/* ---------- Portada ---------- */
+.site-home .hero .hero-copy h1{font-family:var(--m-display);font-weight:500;letter-spacing:-.01em;line-height:.98;font-size:clamp(46px,7.2vw,112px)}
+.site-home .hero .hero-copy h1 em{font-style:italic;font-weight:500}
+.site-home .hero-eyebrow{margin:0 0 18px;font-size:12px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.88)}
+.site-home .hero .hero-copy p:not(.hero-eyebrow){font-size:clamp(15px,1.3vw,19px);line-height:1.55;max-width:34ch;color:rgba(255,255,255,.92)}
+.maison-cta,.site-home .hero .button.maison-cta{display:inline-flex;align-items:center;gap:12px;background:var(--m-terracota);color:#fff;border:0;border-radius:2px;padding:17px 30px;font-size:12.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;box-shadow:0 18px 34px -18px rgba(0,0,0,.7);transition:background-color .25s ease,transform .25s ease}
+.maison-cta:hover,.site-home .hero .button.maison-cta:hover{background:var(--m-terracota-h);transform:translateY(-2px)}
+.maison-cta span{transition:transform .25s ease}
+.maison-cta:hover span{transform:translateX(5px)}
+.site-home .hero-slide.is-active .hero-eyebrow,.site-home .hero-slide:not([hidden]) .hero-eyebrow{animation:m-sube .8s cubic-bezier(.2,.7,.2,1) both}
+.site-home .hero-slide:not([hidden]) h1{animation:m-sube .9s .12s cubic-bezier(.2,.7,.2,1) both}
+.site-home .hero-slide:not([hidden]) .hero-copy p:not(.hero-eyebrow){animation:m-sube .9s .26s cubic-bezier(.2,.7,.2,1) both}
+.site-home .hero-slide:not([hidden]) .maison-cta{animation:m-sube .9s .4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes m-sube{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- Títulos de sección ---------- */
+.maison-cabecera{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin:0 0 clamp(28px,4vw,52px)}
+.maison-eyebrow{margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--m-terracota)}
+.maison-cabecera h2,.maison-destacada h2{margin:0;font-family:var(--m-display);font-weight:500;font-size:clamp(36px,4.8vw,64px);line-height:1.02;letter-spacing:-.01em;color:var(--m-tinta)}
+.maison-cabecera h2 em,.maison-destacada h2 em{font-style:italic}
+.maison-ver{font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--m-tinta);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px}
+.maison-ver:hover{color:var(--m-terracota)}
+
+/* ---------- Colecciones destacadas (foto grande + texto) ---------- */
+.maison-destacadas{background:var(--m-crema)}
+.maison-destacada{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:clamp(28px,6vw,96px);max-width:1360px;margin:0 auto;padding:clamp(44px,7vw,104px) clamp(18px,3.4vw,48px)}
+.maison-destacada+.maison-destacada{padding-top:0}
+.maison-destacada.invertida .maison-destacada-foto{order:2}
+.maison-destacada-foto{position:relative;margin:0;aspect-ratio:4/4.6;overflow:hidden;background:#e4d9c9}
+.maison-destacada-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.maison-destacada:hover .maison-destacada-foto img{transform:scale(1.04)}
+.maison-destacada-texto{max-width:46ch}
+.maison-destacada-texto p{margin:18px 0 28px;color:var(--m-suave);font-size:17px;line-height:1.65}
+.maison-acciones{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.maison-secundario{font-size:13px;font-weight:600;color:var(--m-tinta);text-decoration:underline;text-underline-offset:4px}
+.maison-secundario:hover{color:var(--m-terracota)}
+@media(max-width:860px){
+  .maison-destacada{grid-template-columns:1fr;gap:24px}
+  .maison-destacada.invertida .maison-destacada-foto{order:0}
+  .maison-destacada-foto{aspect-ratio:4/3.4}
+}
+
+/* ---------- Tarjetas de producto ---------- */
+.maison-nuevo{max-width:1360px;margin:0 auto;padding:clamp(48px,7vw,100px) clamp(18px,3.4vw,48px)}
+.maison-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,32px)}
+.maison-card{display:block;color:var(--m-tinta);text-decoration:none}
+.maison-card-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:#e6dccd}
+.maison-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.maison-card:hover .maison-card-img img{transform:scale(1.06)}
+.maison-card-img.estudio{background:#efe8dc}
+.maison-card-img.estudio img{mix-blend-mode:multiply;object-fit:contain;padding:8%;box-sizing:border-box}
+.maison-tag{position:absolute;top:14px;left:14px;background:var(--m-terracota);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px}
+.maison-card-cat{margin:16px 0 4px;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--m-suave)}
+.maison-card h3{margin:0 0 6px;font-family:var(--m-display);font-weight:500;font-size:clamp(22px,2vw,28px);line-height:1.1;color:var(--m-tinta)}
+.maison-card-desc{margin:0 0 10px;font-size:14px;line-height:1.5;color:var(--m-suave)}
+.maison-card-precio{margin:0;font-size:14px;font-weight:600;color:var(--m-tinta)}
+.maison-cargando{grid-column:1/-1;color:var(--m-suave)}
+@media(max-width:960px){.maison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- Explorar por categoría (rejilla asimétrica) ---------- */
+.site-home .category-overview .section-heading h2{font-family:var(--m-display);font-weight:500;font-size:clamp(36px,4.8vw,64px)}
+.site-home .category-overview .eyebrow{color:var(--m-terracota);letter-spacing:.32em}
+.site-home .category-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(210px,24vw,360px);gap:clamp(12px,1.8vw,26px)}
+.site-home .category-tile{position:relative;display:block;overflow:hidden;color:#fff;text-decoration:none;grid-column:span 7;margin:0;padding:0;background:#3d302a}
+.site-home .category-tile:nth-child(2n){grid-column:span 5}
+.site-home .category-tile:nth-child(2),.site-home .category-tile:nth-child(4){grid-row:span 2}
+.site-home .category-tile:nth-child(4){grid-column:span 5}
+.site-home .category-tile:nth-child(5),.site-home .category-tile:nth-child(6){grid-column:span 7}
+.site-home .category-image{position:absolute;inset:0;aspect-ratio:auto;height:100%;margin:0}
+.site-home .category-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.site-home .category-tile:hover .category-image img{transform:scale(1.05)}
+.site-home .category-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,10,0) 45%,rgba(20,14,10,.72));pointer-events:none}
+.site-home .category-label{position:absolute;left:clamp(18px,2.4vw,34px);bottom:clamp(40px,4.2vw,64px);right:20px;z-index:1;display:flex;align-items:center;gap:12px;margin:0}
+.site-home .category-label h3{margin:0;font-family:var(--m-display);font-weight:500;font-size:clamp(28px,3vw,44px);line-height:1;color:#fff}
+.site-home .category-label span{font-size:20px}
+.site-home .category-tile>p{position:absolute;z-index:1;left:clamp(18px,2.4vw,34px);bottom:clamp(16px,1.9vw,26px);right:20px;margin:0;font-size:14px;color:rgba(255,255,255,.9)}
+@media(max-width:700px){
+  .site-home .category-grid{grid-template-columns:1fr;grid-auto-rows:clamp(240px,62vw,320px)}
+  .site-home .category-tile,.site-home .category-tile:nth-child(n){grid-column:auto;grid-row:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-home .hero-eyebrow,.site-home .hero-slide h1,.site-home .hero-copy p,.site-home .maison-cta{animation:none!important}
+  .maison-destacada-foto img,.maison-card-img img,.site-home .category-image img{transition:none}
+}
