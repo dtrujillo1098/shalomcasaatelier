@@ -82,3 +82,14 @@
   }), { threshold: 0.9 });
   divisores.forEach(d => vigia.observe(d));
 })();
+
+// Menú flotante de escritorio: el desplegable "Colección" se abre con clic, con el cursor o con el teclado.
+(function () {
+  const item = document.querySelector('.pill-item');
+  if (!item) return;
+  const boton = item.querySelector('.pill-parent');
+  const poner = abierto => { item.classList.toggle('is-open', abierto); boton.setAttribute('aria-expanded', String(abierto)); };
+  boton.addEventListener('click', e => { e.stopPropagation(); poner(!item.classList.contains('is-open')); });
+  document.addEventListener('click', e => { if (!e.target.closest('.pill-item')) poner(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { poner(false); } });
+})();

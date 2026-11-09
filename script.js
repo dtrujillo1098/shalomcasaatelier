@@ -397,7 +397,7 @@ if(slides.length) {
     document.querySelector('#banner-caption').textContent = slides[activeSlide].dataset.caption;
     document.querySelector('#banner-count').textContent = String(activeSlide+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
   }
-  function startRotation() { clearInterval(timer); if(!document.hidden) timer = setInterval(() => showSlide(activeSlide+1),3500); }
+  function startRotation() { clearInterval(timer); if(!document.hidden) timer = setInterval(() => showSlide(activeSlide+1),6500); }
   buttons.forEach(button=>button.addEventListener('click',()=>{showSlide(Number(button.dataset.slide));startRotation();}));
   document.querySelector('#banner-prev').addEventListener('click',()=>{showSlide(activeSlide-1);startRotation();});
   document.querySelector('#banner-next').addEventListener('click',()=>{showSlide(activeSlide+1);startRotation();});

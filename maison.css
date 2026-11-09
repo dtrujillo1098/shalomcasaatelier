@@ -97,3 +97,66 @@ html.m-anim .m-divisor i:last-child{transition-delay:.18s}
 html.m-anim .m-divisor.visible i{transform:scaleX(1)}
 @media(max-width:700px){.m-divisor i{height:3px}.m-divisor{gap:5px}}
 @media(prefers-reduced-motion:reduce){html.m-anim .m-divisor i{transform:none;transition:none}}
+
+/* ---------- Banner de escritorio: menú flotante, textos y controles según el diseño ---------- */
+.pill-nav,.hero-scroll{display:none}
+.hero-acciones{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.maison-ghost{display:none}
+@keyframes m-rebota{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+@media(min-width:961px){
+  body.site-home .utility-bar{display:none}
+  body.site-home .header{position:fixed;top:22px;left:50%;transform:translateX(-50%);width:min(1304px,calc(100% - 96px));height:76px;margin:0;padding:0 38px;display:flex;justify-content:space-between;align-items:center;border-radius:30px;background:rgba(84,66,52,.62);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.16);box-shadow:0 20px 44px -22px rgba(30,20,12,.7);z-index:40}
+  body.site-home .header #main-nav,body.site-home .header .header-actions,body.site-home .header .menu-toggle{display:none}
+  body.site-home .header .logo-shalom{height:50px;filter:brightness(0) invert(1);opacity:.97}
+  .pill-nav{display:flex;align-items:center;gap:4px;font-family:var(--m-display)}
+  .pill-link{position:relative;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:0;background:none;color:#fff;font-family:var(--m-display);font-size:21px;font-weight:500;text-decoration:none;cursor:pointer}
+  .pill-link svg{width:16px;height:16px;transition:transform .25s ease}
+  .pill-link::after{content:"";position:absolute;left:16px;right:16px;bottom:3px;height:2px;border-radius:2px;background:currentColor;transform:scaleX(0);transition:transform .3s ease}
+  .pill-link:hover::after,.pill-link.is-current::after,.pill-item:hover .pill-parent::after,.pill-item.is-open .pill-parent::after{transform:scaleX(1)}
+  .pill-item.is-open .pill-parent svg,.pill-item:hover .pill-parent svg{transform:rotate(180deg)}
+  .pill-cta{margin-left:14px;padding:12px 24px;border-radius:12px;background:#f3ece0;color:#3a2c22;font-family:var(--m-display);font-size:21px;font-weight:600;text-decoration:none;transition:background-color .2s ease,transform .2s ease}
+  .pill-cta:hover{background:#fff;transform:translateY(-1px)}
+  .pill-item{position:relative}
+  .pill-panel{position:absolute;top:calc(100% + 22px);right:-96px;width:min(920px,84vw);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;padding:28px 32px;border-radius:22px;background:rgba(250,247,242,.98);color:#3d302a;box-shadow:0 30px 60px -30px rgba(30,20,12,.65);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease,visibility .25s}
+  .pill-panel::before{content:"";position:absolute;left:0;right:0;top:-24px;height:24px}
+  .pill-item:hover .pill-panel,.pill-item:focus-within .pill-panel,.pill-item.is-open .pill-panel{opacity:1;visibility:visible;transform:none}
+  .pill-col p{margin:0 0 10px;font-family:var(--m-display);font-size:22px;font-weight:600;color:var(--m-terracota)}
+  .pill-col a{display:block;padding:5px 0;font:500 14.5px/1.35 'DM Sans',system-ui,sans-serif;color:#3d302a;text-decoration:none}
+  .pill-col a:hover{color:var(--m-terracota)}
+
+  body.site-home .hero{height:100svh;min-height:660px;max-height:none}
+  body.site-home .hero-slide>img{object-position:center center}
+  body.site-home .hero-slide .hero-shade{background:linear-gradient(90deg,rgba(70,50,36,.74) 0%,rgba(70,50,36,.42) 30%,rgba(70,50,36,.08) 58%,rgba(70,50,36,0) 100%),linear-gradient(180deg,rgba(40,28,20,.34) 0%,rgba(40,28,20,0) 24%,rgba(40,28,20,0) 72%,rgba(40,28,20,.3) 100%)}
+  body.site-home .hero .hero-copy{top:50%;left:clamp(32px,4.6vw,88px);transform:translateY(-44%);max-width:min(660px,50vw)}
+  body.site-home .hero .hero-copy h1{font-family:var(--m-display);font-weight:400;font-size:clamp(54px,6.4vw,100px);line-height:.98;letter-spacing:-.015em;margin:0 0 22px}
+  body.site-home .hero-eyebrow{font-size:clamp(13px,1.15vw,17px);letter-spacing:.38em;margin-bottom:26px}
+  body.site-home .hero .hero-copy p:not(.hero-eyebrow){font-family:var(--m-display);font-size:clamp(20px,1.7vw,27px);line-height:1.35;max-width:30ch;margin:0 0 34px;color:rgba(255,255,255,.95)}
+  body.site-home .hero .maison-cta{font-family:var(--m-display);font-size:clamp(18px,1.5vw,22px);font-weight:600;letter-spacing:0;text-transform:none;border-radius:12px;padding:17px 30px}
+  .maison-ghost{display:inline-flex;align-items:center;font-family:var(--m-display);font-size:clamp(18px,1.5vw,22px);font-weight:600;color:#fff;border:1.5px solid rgba(255,255,255,.88);border-radius:12px;padding:15.5px 30px;text-decoration:none;transition:background-color .25s ease,transform .25s ease}
+  .maison-ghost:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+
+  body.site-home .hero-bottom{position:absolute;display:flex;justify-content:flex-end;align-items:center;gap:18px;left:auto;right:clamp(32px,6vw,96px);bottom:38px;z-index:5}
+  body.site-home .hero-bottom .banner-controls{display:contents}
+  body.site-home #banner-caption,body.site-home .banner-dots{display:none}
+  body.site-home #banner-prev{order:1}
+  body.site-home #banner-count{order:2;font-family:var(--m-display);font-size:20px;font-weight:500;letter-spacing:.06em;color:#fff}
+  body.site-home #banner-next{order:3}
+  body.site-home .hero-bottom button{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);background:transparent;color:#fff;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background-color .2s ease}
+  body.site-home .hero-bottom button:hover{background:rgba(255,255,255,.18)}
+  .hero-scroll{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);display:block;color:#fff;z-index:5;animation:m-rebota 2.2s ease-in-out infinite}
+  .hero-scroll svg{display:block;width:34px;height:34px}
+}
+@media(prefers-reduced-motion:reduce){.hero-scroll{animation:none!important}}
+
+/* Ajustes del banner: botón en serif como el diseño, subtítulo en una línea y controles sin chocar con WhatsApp */
+@media(min-width:961px){
+  body.site-home .hero .button.maison-cta.hero-cta{font-family:var(--m-display);font-size:clamp(18px,1.5vw,22px);font-weight:600;letter-spacing:0;text-transform:none;border-radius:12px;padding:17px 30px}
+  body.site-home .hero .hero-copy p:not(.hero-eyebrow){max-width:none}
+  body.site-home .hero-bottom{right:clamp(150px,11vw,190px)}
+}
+
+/* El desplegable se ancla al menú flotante completo, no al botón */
+@media(min-width:961px){
+  .pill-item{position:static}
+  .pill-panel{top:calc(100% + 14px);right:0;left:auto;width:min(920px,100%)}
+}
