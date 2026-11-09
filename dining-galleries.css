@@ -1,0 +1,11 @@
+
+.line-image.dining-photo { position:relative; overflow:hidden; background:#fff; aspect-ratio:3/2; }
+.line-image.dining-photo > img:first-of-type { width:100%; height:100%; object-fit:contain; transition:opacity .55s ease; }
+.line-image.dining-photo > img.dining-photo-ambient { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:none; transition:opacity .55s ease; }
+@media (hover:hover) and (pointer:fine) {
+ .line-image.dining-photo:hover > img.dining-photo-ambient { opacity:1; transform:none; }
+}
+.line-image.dining-photo:focus-visible > img.dining-photo-ambient { opacity:1; }
+.gallery-stage.dining-white-stage { background:white; }
+.gallery-stage.dining-white-stage > img { object-fit:contain; }
+@media(prefers-reduced-motion:reduce) { .line-image.dining-photo > img { transition:none; } }

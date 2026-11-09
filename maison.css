@@ -160,3 +160,409 @@ html.m-anim .m-divisor.visible i{transform:scaleX(1)}
   .pill-item{position:static}
   .pill-panel{top:calc(100% + 14px);right:0;left:auto;width:min(920px,100%)}
 }
+
+/* Navegación integrada con la fotografía y la paleta editorial. */
+@media(min-width:961px){
+  body.site-home .header,
+  body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)){
+    top:0;left:0;transform:none;width:100%;height:104px;
+    padding:0 clamp(32px,4.6vw,88px);border:0;border-radius:0;
+    background:linear-gradient(180deg,rgba(35,26,19,.58),rgba(35,26,19,.12) 70%,transparent);
+    box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+    transition:background .3s ease,height .3s ease,box-shadow .3s ease;
+  }
+  body.site-home .header .pill-link{color:#fff8ed;text-shadow:0 1px 8px rgba(30,20,12,.3);font-size:20px}
+  body.site-home .header .pill-cta{background:rgba(247,240,227,.94);color:#49372b;border:1px solid rgba(255,248,235,.5);border-radius:6px;padding:11px 26px;font-size:20px}
+  body.site-home .header.is-scrolled{height:82px;background:rgba(248,244,237,.97);box-shadow:0 3px 18px rgba(55,38,25,.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  body.site-home .header.is-scrolled .logo-shalom{filter:none}
+  body.site-home .header.is-scrolled .pill-link{color:#49372b;text-shadow:none}
+  body.site-home .header.is-scrolled .pill-cta{background:#a95c3c;color:#fff8ed;border-color:transparent}
+  body.site-home .header .pill-panel{right:clamp(32px,4.6vw,88px);top:calc(100% - 2px);border-radius:8px}
+  body.site-home .header .pill-link:focus-visible,body.site-home .header .pill-cta:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+}
+/* Movimiento discreto de marca al entrar, desplazarse e interactuar. */
+@keyframes shalom-logo-entrada{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+body.site-home .header .brand-logo{
+  animation:shalom-logo-entrada .9s cubic-bezier(.22,1,.36,1) both;
+}
+body.site-home .header .brand-logo .logo-shalom{
+  transform-origin:left center;
+  transition:transform .5s cubic-bezier(.22,1,.36,1),filter .5s ease,opacity .35s ease;
+}
+@media(min-width:961px){
+  body.site-home .header.is-scrolled .brand-logo .logo-shalom{transform:scale(.9)}
+  body.site-home .header .brand-logo:hover .logo-shalom{transform:scale(1.025);opacity:1}
+  body.site-home .header.is-scrolled .brand-logo:hover .logo-shalom{transform:scale(.93)}
+}
+@media(prefers-reduced-motion:reduce){
+  body.site-home .header .brand-logo{animation:none}
+  body.site-home .header .brand-logo .logo-shalom{transition:none}
+}
+/* La marca se forma de izquierda a derecha con un borde difuminado. */
+@property --shalom-reveal{
+  syntax:'<percentage>';
+  inherits:false;
+  initial-value:0%;
+}
+@keyframes shalom-logo-formar{
+  0%{--shalom-reveal:0%;opacity:0;filter:blur(3px)}
+  15%{opacity:.3}
+  65%{opacity:.85;filter:blur(.4px)}
+  100%{--shalom-reveal:120%;opacity:1;filter:blur(0)}
+}
+body.site-home .header .brand-logo{
+  --shalom-reveal:0%;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(var(--shalom-reveal) - 20%),transparent var(--shalom-reveal));
+  mask-image:linear-gradient(90deg,#000 calc(var(--shalom-reveal) - 20%),transparent var(--shalom-reveal));
+  animation:shalom-logo-formar 2.8s cubic-bezier(.25,.1,.25,1) .25s both;
+}
+@media(prefers-reduced-motion:reduce){
+  body.site-home .header .brand-logo{animation:none;opacity:1;filter:none;-webkit-mask-image:none;mask-image:none}
+}
+/* Huella primero; firma después. Dos capas de la misma marca. */
+@keyframes shalom-huella-trazo{
+  0%{clip-path:inset(0 81% 100% 0);opacity:0}
+  12%{opacity:1}
+  100%{clip-path:inset(0 81% 0 0);opacity:1}
+}
+@keyframes shalom-nombre-suave{
+  from{opacity:0;translate:0 3px}
+  to{opacity:1;translate:0 0}
+}
+body.site-home .header .brand-logo{
+  position:relative;animation:none;filter:none;opacity:1;
+  -webkit-mask-image:none;mask-image:none;
+}
+body.site-home .header .brand-logo .logo-huella-etapa{
+  clip-path:inset(0 81% 0 0);
+  animation:shalom-huella-trazo 2.6s ease-in-out .2s both;
+}
+body.site-home .header .brand-logo .logo-nombre-etapa{
+  position:absolute;left:0;top:50%;margin-top:-25px;
+  clip-path:inset(0 0 0 19%);pointer-events:none;
+  animation:shalom-nombre-suave 2.6s ease-in-out 2.9s both;
+}
+@media(max-width:960px){
+  body.site-home .header .brand-logo .logo-nombre-etapa{top:0;margin-top:0}
+}
+@media(prefers-reduced-motion:reduce){
+  body.site-home .header .brand-logo .logo-huella-etapa,
+  body.site-home .header .brand-logo .logo-nombre-etapa{animation:none;opacity:1;translate:none}
+}
+/* Fondo continuo desde las colecciones hasta el pie de la portada. */
+body.site-home{background:var(--m-crema)}
+body.site-home main{background:var(--m-crema)}
+body.site-home main>section:not(.hero),
+body.site-home .featured-section:not([hidden])~.blog-section,
+body.site-home .featured-section:not([hidden])~.home-about{
+  background:var(--m-crema);border-top:0;border-bottom:0;
+}
+body.site-home footer{background:var(--m-crema);color:var(--m-tinta);border-top:0}
+body.site-home footer a,body.site-home footer .brand-logo.logo7{color:var(--m-tinta)}
+body.site-home footer a:hover{color:var(--m-terracota)}
+body.site-home footer .footer-top p,body.site-home footer .footer-bottom{color:var(--m-suave)}
+body.site-home footer .footer-bottom{border-top-color:rgba(111,98,88,.18)}
+body.site-home footer .brand-logo img{filter:none}
+/* Entrada de fotografías al recorrer las colecciones. */
+body.site-home .coleccion-reveal{
+  opacity:0;translate:0 22px;
+  transition:opacity 1.1s ease,translate 1.1s cubic-bezier(.22,1,.36,1);
+}
+body.site-home .coleccion-reveal.coleccion-visible{opacity:1;translate:0 0}
+@media(prefers-reduced-motion:reduce){
+  body.site-home .coleccion-reveal{opacity:1;translate:none;transition:none}
+}
+/* Colecciones destacadas: escala equilibrada para escritorio. */
+@media(min-width:961px){
+  body.site-home .maison-destacada{
+    width:100%;max-width:1520px;
+    grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+    gap:clamp(40px,5vw,88px);
+    padding:clamp(56px,5vw,88px) clamp(32px,4vw,64px);
+  }
+  body.site-home .maison-destacada+.maison-destacada{padding-top:0}
+  body.site-home .maison-destacada-foto{width:100%;aspect-ratio:4/3}
+  body.site-home .maison-destacada-texto{width:100%;max-width:540px}
+  body.site-home .maison-destacada h2{font-size:clamp(42px,3.8vw,64px);line-height:1.08}
+  body.site-home .maison-destacada-texto p{font-size:clamp(16px,1.1vw,18px);line-height:1.7;margin:22px 0 30px}
+  body.site-home .maison-destacada-texto .maison-eyebrow{font-size:12px;line-height:1.5;margin:0 0 22px;letter-spacing:.3em}
+  body.site-home .maison-acciones{gap:18px 24px}
+  body.site-home .maison-destacada .maison-cta{padding:18px 28px;font-size:12px;letter-spacing:.16em}
+  body.site-home .maison-destacada .maison-secundario{font-size:13px;line-height:1.6}
+}
+/* Mismo ancho de fotografía y alineación en todas las filas alternadas. */
+@media(min-width:961px){
+  body.site-home .maison-destacada{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center}
+  body.site-home .maison-destacada.invertida{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
+  body.site-home .maison-destacada .maison-destacada-foto{width:100%;aspect-ratio:4/3;align-self:center}
+  body.site-home .maison-destacada .maison-destacada-foto img{width:100%;height:100%;object-fit:cover;object-position:center}
+  body.site-home .maison-destacada .maison-destacada-texto{align-self:center;justify-self:start;margin:0}
+  body.site-home .maison-destacada.invertida .maison-destacada-texto{justify-self:end}
+}
+@media(max-width:960px){
+  body.site-home .maison-destacada .maison-destacada-foto{width:100%;aspect-ratio:4/3}
+}
+/* Alternancia suave por colección, con fondo de borde a borde. */
+body.site-home .maison-destacada{
+  position:relative;isolation:isolate;
+}
+body.site-home .maison-destacada::before{
+  content:"";position:absolute;z-index:-1;top:0;bottom:0;
+  left:50%;width:100vw;transform:translateX(-50%);
+  background:#f6f1e9;pointer-events:none;
+}
+body.site-home .maison-destacada:nth-child(even)::before{background:#f1ebe2}
+body.site-home .maison-destacadas{overflow:hidden}
+body.site-home .maison-destacada+.maison-destacada{
+  padding-top:clamp(44px,7vw,104px);
+}
+@media(min-width:961px){
+  body.site-home .maison-destacada+.maison-destacada{padding-top:clamp(56px,5vw,88px)}
+}
+/* Carrusel de ambientes de sofacamas. */
+body.site-home .sofa-carousel .sofa-frame{opacity:0;transition:opacity .7s ease;transform:none}
+body.site-home .sofa-carousel .sofa-frame.is-current{opacity:1}
+.sofa-arrow{position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(48,35,25,.55);color:#fff;font-size:23px;display:grid;place-items:center;cursor:pointer}
+.sofa-prev{left:16px}.sofa-next{right:16px}
+.sofa-arrow:hover{background:rgba(48,35,25,.85)}
+.sofa-dots{position:absolute;bottom:16px;left:50%;translate:-50% 0;display:flex;z-index:2;padding:2px 8px;border-radius:24px;background:rgba(48,35,25,.5)}
+.sofa-dots button{width:28px;height:28px;padding:9px;border:0;background:transparent;cursor:pointer}
+.sofa-dots button::after{content:"";display:block;width:10px;height:10px;border:1px solid #fff;border-radius:50%}
+.sofa-dots button[aria-current="true"]::after{background:#fff}
+@media(prefers-reduced-motion:reduce){body.site-home .sofa-carousel .sofa-frame{transition:none}}
+/* Tres fotografías visibles con expansión suave al interactuar. */
+body.site-home .maison-destacada-foto.sofa-gallery{display:flex;gap:8px;background:transparent;overflow:hidden}
+body.site-home .sofa-gallery .sofa-panel{position:relative;display:block;flex:1 1 0;min-width:0;height:100%;overflow:hidden;transition:flex-grow .75s cubic-bezier(.22,1,.36,1)}
+body.site-home .sofa-gallery .sofa-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:none;transition:transform .85s cubic-bezier(.22,1,.36,1)}
+@media(hover:hover) and (pointer:fine){
+  body.site-home .sofa-gallery .sofa-panel:hover{flex-grow:2.4}
+  body.site-home .sofa-gallery .sofa-panel:hover img{transform:scale(1.035)}
+}
+body.site-home .sofa-gallery .sofa-panel:focus-visible{flex-grow:2.4;outline:3px solid var(--m-terracota);outline-offset:-3px}
+@media(max-width:700px){body.site-home .maison-destacada-foto.sofa-gallery{gap:5px}}
+@media(prefers-reduced-motion:reduce){
+  body.site-home .sofa-gallery .sofa-panel,body.site-home .sofa-gallery .sofa-panel img{transition:none}
+}
+/* Galería de tarjetas en profundidad. */
+body.site-home .maison-destacada-foto.sofa-gallery{display:block;overflow:visible;perspective:1100px;background:transparent}
+body.site-home .sofa-gallery .sofa-panel{
+  position:absolute;left:25%;top:5%;width:50%;height:90%;
+  border-radius:26px;overflow:hidden;flex:none;
+  box-shadow:0 22px 40px -16px rgba(56,37,22,.36);
+  transition:transform .75s cubic-bezier(.22,1,.36,1),filter .75s ease,opacity .75s ease,box-shadow .75s ease;
+  transform-origin:center;outline-offset:5px;
+}
+body.site-home .sofa-gallery .sofa-panel:nth-child(1){transform:translateX(-65%) scale(.82) rotateY(16deg);z-index:1;filter:brightness(.8);opacity:.88}
+body.site-home .sofa-gallery .sofa-panel:nth-child(2){transform:translateZ(35px);z-index:3;filter:none;opacity:1}
+body.site-home .sofa-gallery .sofa-panel:nth-child(3){transform:translateX(65%) scale(.82) rotateY(-16deg);z-index:1;filter:brightness(.8);opacity:.88}
+body.site-home .sofa-gallery .sofa-panel img{border-radius:inherit;transform:none}
+body.site-home .sofa-gallery.is-interacting .sofa-panel{transform:translateX(var(--card-offset)) scale(.82) rotateY(var(--card-angle));z-index:1;filter:brightness(.8);opacity:.88}
+body.site-home .sofa-gallery.is-interacting .sofa-panel.is-front{transform:translateZ(35px);z-index:4;filter:none;opacity:1;box-shadow:0 28px 50px -16px rgba(56,37,22,.4)}
+body.site-home .sofa-gallery .sofa-panel:hover img{transform:none}
+body.site-home .sofa-gallery .sofa-panel:focus-visible{outline:3px solid var(--m-terracota)}
+@media(max-width:700px){body.site-home .sofa-gallery .sofa-panel{border-radius:18px}}
+@media(prefers-reduced-motion:reduce){body.site-home .sofa-gallery .sofa-panel{transition:none}}
+/* Foto de sofacamas más panorámica en escritorio. */
+@media(min-width:961px){
+  body.site-home .maison-destacadas>.maison-destacada:first-child{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(32px,4vw,64px)}
+  body.site-home .maison-destacadas>.maison-destacada:first-child .maison-destacada-foto{aspect-ratio:3/2}
+}
+/* Todas las colecciones comparten la escala panorámica en PC. */
+@media(min-width:961px){
+  body.site-home .maison-destacadas>.maison-destacada{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(32px,4vw,64px)}
+  body.site-home .maison-destacadas>.maison-destacada.invertida{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
+  body.site-home .maison-destacadas>.maison-destacada .maison-destacada-foto{width:100%;aspect-ratio:3/2}
+}
+/* La alternancia continúa por toda la portada, de borde a borde. */
+body.site-home main>section:not(.hero):not(.maison-destacadas),body.site-home footer{
+  position:relative;isolation:isolate;background:var(--section-tone,#f6f1e9);
+}
+body.site-home main>section:not(.hero):not(.maison-destacadas)::before,body.site-home footer::before{
+  content:"";position:absolute;z-index:-1;inset:0 auto 0 50%;width:100vw;
+  transform:translateX(-50%);background:var(--section-tone,#f6f1e9);pointer-events:none;
+}
+body.site-home #piezas{--section-tone:#f1ebe2}
+body.site-home #categorias{--section-tone:#f6f1e9}
+body.site-home #blog{--section-tone:#f1ebe2}
+body.site-home .home-about{--section-tone:#f6f1e9}
+body.site-home footer{--section-tone:#f1ebe2}
+body.site-home{overflow-x:clip}
+/* Video del banner, solo PC; la foto permanece de respaldo. */
+.hero-banner-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;pointer-events:none;transition:opacity .8s ease}
+.hero-banner-video.is-ready{opacity:1}
+.hero-video-toggle{position:absolute;right:32px;bottom:32px;z-index:6;border:1px solid rgba(255,255,255,.65);border-radius:24px;background:rgba(45,32,22,.6);color:#fff;padding:10px 18px;font:500 13px/1.4 'DM Sans',sans-serif;cursor:pointer}
+@media(max-width:960px),(prefers-reduced-motion:reduce){.hero-banner-video,.hero-video-toggle{display:none}}
+/* Control del video oculto por diseño. */
+body.site-home .hero-video-toggle{display:none}
+
+/* Nueva portada editorial con el Rubí del catálogo. */
+body.site-home .hero-photo{position:absolute;inset:0;display:block;width:100%;height:100%}
+body.site-home .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+/* Dos portadas con fundido y movimiento fotográfico suave, solo PC. */
+.medusa-slide{display:none}
+@media(min-width:961px){
+ .hero-with-medusa .hero-slide{display:block;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 1.2s ease,visibility 1.2s ease}
+ .hero-with-medusa .hero-slide.is-banner-active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}
+ .hero-with-medusa .medusa-slide>img{height:100%;transform-origin:65% 50%}
+ .hero-with-medusa .medusa-slide.is-banner-active>img{animation:medusa-acercamiento 7.2s linear both}
+}
+@keyframes medusa-acercamiento{from{transform:scale(1)}to{transform:scale(1.045)}}
+@media(prefers-reduced-motion:reduce){
+ .hero-with-medusa .hero-slide{transition:none}
+ .hero-with-medusa .medusa-slide.is-banner-active>img{animation:none}
+}
+/* Movimiento de cámara discreto para la portada Medusa. */
+@keyframes medusa-camara-suave{
+  0%{transform:scale(1.018) translate3d(-.25%,0,0)}
+  100%{transform:scale(1.033) translate3d(.25%,-.15%,0)}
+}
+@media(min-width:961px) and (prefers-reduced-motion:no-preference){
+ body.site-home .hero-with-medusa .medusa-slide>img{max-width:none;width:100%;height:100%;transform-origin:65% 55%;will-change:transform}
+ body.site-home .hero-with-medusa .medusa-slide.is-banner-active>img{animation:medusa-camara-suave 7.2s cubic-bezier(.25,.1,.25,1) both}
+}
+@media(prefers-reduced-motion:reduce){body.site-home .hero-with-medusa .medusa-slide>img{animation:none;transform:none;will-change:auto}}
+/* Firma de producto sobre la fotografía de Medusa. */
+.medusa-product-label{position:absolute;right:clamp(32px,4.6vw,88px);bottom:42px;z-index:4;display:flex;flex-direction:column;gap:8px;min-width:230px;padding:20px 26px;border:1px solid rgba(255,248,235,.45);border-radius:3px;background:rgba(42,32,23,.52);backdrop-filter:blur(12px);color:#fff8ed;box-shadow:0 12px 32px rgba(25,18,12,.12);text-decoration:none;transition:background .3s ease,transform .3s ease}
+.medusa-label-kicker{font:500 9px/1.4 'DM Sans',sans-serif;letter-spacing:.24em;opacity:.78}
+.medusa-label-title{display:flex;justify-content:space-between;gap:28px;font:500 27px/1.2 'Cormorant Garamond',Georgia,serif}
+.medusa-label-link{font:400 11px/1.5 'DM Sans',sans-serif;text-underline-offset:4px;text-decoration:underline;opacity:.85}
+.medusa-product-label:hover{background:rgba(42,32,23,.72);transform:translateY(-3px)}
+.medusa-product-label:focus-visible{outline:2px solid #fff8ed;outline-offset:5px}
+@media(max-width:960px){.medusa-product-label{display:none}}
+@media(prefers-reduced-motion:reduce){.medusa-product-label{transition:none}}
+/* Viñeta de producto anclada visualmente al comedor. */
+@media(min-width:961px){
+ .medusa-product-label{left:66%;top:35%;right:auto;bottom:auto;min-width:0;padding:12px 18px;gap:5px;border-radius:8px;background:rgba(250,246,237,.93);border:1px solid rgba(255,255,255,.7);color:#49372b;box-shadow:0 8px 24px rgba(40,28,18,.16);transform:translateX(-50%)}
+ .medusa-product-label::before{content:"";position:absolute;width:1px;height:37px;background:rgba(255,249,237,.9);left:50%;top:100%}
+ .medusa-product-label::after{content:"";position:absolute;width:9px;height:9px;left:calc(50% - 4px);top:calc(100% + 34px);border-radius:50%;background:#fff9ed;box-shadow:0 0 0 5px rgba(255,249,237,.23)}
+ .medusa-product-label .medusa-label-kicker{display:none}
+ .medusa-product-label .medusa-label-title{font-size:23px;gap:20px}
+ .medusa-product-label .medusa-label-link{font-size:10px}
+ .medusa-product-label:hover{background:#fffaf2;transform:translateX(-50%) translateY(-2px)}
+}
+/* Viñeta ligera que deja visible la fotografía. */
+@media(min-width:961px){
+ .medusa-product-label{background:rgba(250,246,237,.48);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);border-color:rgba(255,255,255,.35);box-shadow:0 4px 14px rgba(40,28,18,.08)}
+ .medusa-product-label:hover{background:rgba(250,246,237,.7)}
+}
+/* Viñeta compacta en la pared, fuera de la silueta del comedor. */
+@media(min-width:961px){
+ .medusa-product-label{left:auto;right:5%;top:22%;bottom:auto;transform:none;padding:9px 13px;gap:3px;border-radius:6px}
+ .medusa-product-label .medusa-label-title{font-size:19px;gap:13px}
+ .medusa-product-label .medusa-label-link{font-size:9px}
+ .medusa-product-label::before,.medusa-product-label::after{display:none}
+ .medusa-product-label:hover{transform:translateY(-2px)}
+}
+/* Viñeta junto a la silla izquierda indicada. */
+@media(min-width:961px){
+ .medusa-product-label{left:44%;right:auto;top:43%;bottom:auto;transform:none}
+ .medusa-product-label:hover{transform:translateY(-2px)}
+}
+/* La viñeta se revela al explorar el comedor o navegar con teclado. */
+@media(min-width:961px) and (hover:hover){
+ .medusa-slide .medusa-product-label{opacity:0;visibility:visible;pointer-events:none;translate:0 5px;transition:opacity .45s ease,translate .45s ease,visibility .45s,background .3s ease}
+ .medusa-slide:has(.medusa-product-zone:hover) .medusa-product-label,
+ .medusa-slide:has(.medusa-product-label:hover) .medusa-product-label,
+ .medusa-slide:focus-within .medusa-product-label{opacity:1;visibility:visible;pointer-events:auto;translate:0 0}
+ .medusa-slide .medusa-product-label:focus{opacity:1;visibility:visible;pointer-events:auto;translate:0 0}
+}
+.medusa-product-zone{position:absolute;left:29%;right:0;top:31%;bottom:0;z-index:2}
+.medusa-product-label{z-index:4}
+@media(max-width:960px){.medusa-product-zone{display:none}}
+@media(prefers-reduced-motion:reduce){.medusa-slide .medusa-product-label{transition:none;translate:none}}
+/* Sala Luna: tercera portada con movimiento de cámara discreto. */
+.luna-slide{display:none}
+@media(min-width:961px){
+ .hero-with-medusa .luna-slide{display:block}
+ body.site-home .hero-with-medusa .luna-slide>img{width:100%;height:100%;object-fit:cover;transform-origin:65% 55%}
+}
+@media(min-width:961px) and (prefers-reduced-motion:no-preference){
+ body.site-home .hero-with-medusa .luna-slide.is-banner-active>img{animation:medusa-camara-suave 7.2s cubic-bezier(.25,.1,.25,1) both}
+}
+@media(prefers-reduced-motion:reduce){body.site-home .hero-with-medusa .luna-slide>img{animation:none;transform:none}}
+/* Medusa es la portada inicial; ambas portadas usan productos del catálogo. */
+@media(max-width:960px){
+ body.site-home .hero-with-medusa .medusa-slide{display:block}
+ body.site-home .hero-with-medusa .luna-slide{display:none}
+}
+/* Chevron ocupa la segunda posición del banner en PC. */
+.chevron-slide{display:none}
+@media(min-width:961px){
+ .hero-with-medusa .chevron-slide{display:block}
+ body.site-home .hero-with-medusa .chevron-slide>img{width:100%;height:100%;object-fit:cover;transform-origin:65% 55%}
+}
+@media(min-width:961px) and (prefers-reduced-motion:no-preference){
+ body.site-home .hero-with-medusa .chevron-slide.is-banner-active>img{animation:medusa-camara-suave 7.2s cubic-bezier(.25,.1,.25,1) both}
+}
+@media(prefers-reduced-motion:reduce){body.site-home .hero-with-medusa .chevron-slide>img{animation:none;transform:none}}
+/* Video original y etiquetas de sus productos sincronizadas. */
+.product-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;pointer-events:none}
+.hero-product-tag{display:none}
+@media(min-width:961px){
+ .film-ready .hero-slide>img{opacity:0!important;animation:none!important}
+ .hero-with-medusa[data-product-film] .hero-slide{transition:none}
+ .hero-product-tag{position:absolute;z-index:5;display:flex;gap:12px;align-items:center;padding:9px 13px;border-radius:6px;border:1px solid rgba(255,255,255,.45);background:rgba(250,246,237,.52);backdrop-filter:blur(3px);color:#49372b;font:500 19px/1.2 'Cormorant Garamond',Georgia,serif;opacity:0;translate:0 4px;transition:opacity .4s ease,translate .4s ease,background .3s ease}
+ [data-product-film]:hover .is-banner-active .hero-product-tag,.hero-product-tag:focus-visible{opacity:1;translate:0 0}
+ .hero-product-tag:hover{background:rgba(250,246,237,.8)}
+ .hero-product-tag:focus-visible{outline:2px solid #fff8ed;outline-offset:4px}
+ .tag-medusa{left:44%;top:43%}.tag-chevron{left:66%;top:66%}.tag-luna{left:77%;top:47%}.tag-esfera{left:55%;top:76%}
+}
+@media(prefers-reduced-motion:reduce){.hero-product-tag{transition:none}}
+
+/* Etiquetas discretas junto a las siluetas del video. */
+@media(min-width:961px){
+ .hero-product-tag{padding:7px 10px;gap:10px;border-radius:4px;background:rgba(250,246,237,.22);border-color:rgba(255,255,255,.28);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);box-shadow:none;font-size:16px;line-height:1.2;color:#3d302a;text-shadow:0 1px 3px rgba(255,250,240,.35)}
+ .hero-product-tag:hover{background:rgba(250,246,237,.46)}
+ .tag-medusa{left:58%;top:31%}
+ .tag-chevron{left:77%;top:78%}
+ .tag-luna{left:78%;top:38%}
+ .tag-esfera{left:43%;top:83%}
+}
+/* Etiquetas visibles desde que entra cada ambiente. */
+@media(min-width:961px){
+ [data-product-film] .is-banner-active .hero-product-tag{opacity:1;translate:0 0}
+}
+/* Luna: etiqueta legible junto al brazo derecho de la sala. */
+@media(min-width:961px){
+ [data-product-film] .luna-slide.is-banner-active .tag-luna{left:75%;top:62%;right:auto;bottom:auto;opacity:1;visibility:visible;display:flex;background:rgba(250,246,237,.48);color:#3d302a;border-color:rgba(255,255,255,.55);font-size:18px;z-index:8}
+}
+/* Medusa: etiqueta junto al borde geométrico señalado. */
+@media(min-width:961px){
+ [data-product-film] .medusa-slide .tag-medusa{left:52%;top:55%;right:auto;bottom:auto}
+}
+/* Chevron: viñeta en la zona central del cabecero geométrico. */
+@media(min-width:961px){
+ [data-product-film] .chevron-slide .tag-chevron{left:57%;top:27%;right:auto;bottom:auto}
+}
+/* Esfera: viñeta sobre el tablero de madera. */
+@media(min-width:961px){
+ [data-product-film] .luna-slide .tag-esfera{left:46%;top:67%;right:auto;bottom:auto}
+}
+/* Luna: viñeta sobre el respaldo indicado. */
+@media(min-width:961px){
+ [data-product-film] .luna-slide.is-banner-active .tag-luna{left:66%;top:48%;right:auto;bottom:auto}
+}
+/* Etiquetas de producto en las colecciones destacadas, solo PC. */
+.collection-product-label{display:none}
+@media(min-width:961px){
+ .maison-destacada-foto>a{display:block;width:100%;height:100%}
+ .collection-product-label{position:absolute;right:18px;bottom:18px;z-index:3;display:inline-flex;align-items:center;gap:22px;padding:10px 15px;background:rgba(250,246,237,.65);backdrop-filter:blur(3px);border:1px solid rgba(255,255,255,.45);border-radius:5px;color:#3d302a;font:500 20px/1.2 'Cormorant Garamond',Georgia,serif;transition:background .3s ease}
+ .maison-destacada-foto>a:hover .collection-product-label{background:rgba(250,246,237,.85)}
+ .maison-destacada-foto>a:focus-visible{outline:3px solid #a95c3c;outline-offset:-3px}
+}
+/* Las etiquetas se revelan al explorar cada fotografía. */
+@media(min-width:961px) and (hover:hover){
+ .maison-destacada-foto .collection-product-label{opacity:0;translate:0 6px;pointer-events:none;transition:opacity .45s ease,translate .45s ease,background .3s ease}
+ .maison-destacada-foto:hover .collection-product-label,
+ .maison-destacada-foto:focus-within .collection-product-label{opacity:1;translate:0 0}
+}
+@media(prefers-reduced-motion:reduce){.maison-destacada-foto .collection-product-label{transition:none;translate:none}}
+/* Aparición escalonada de las fotografías del catálogo en PC. */
+@media(min-width:961px){
+ .maison-card-img.piece-photo-reveal{opacity:0;translate:0 20px;transition:opacity 1s ease var(--piece-delay,0ms),translate 1s cubic-bezier(.22,1,.36,1) var(--piece-delay,0ms)}
+ .maison-card-img.piece-photo-visible{opacity:1;translate:0 0}
+}
+@media(prefers-reduced-motion:reduce){.maison-card-img.piece-photo-reveal{opacity:1;translate:none;transition:none}}

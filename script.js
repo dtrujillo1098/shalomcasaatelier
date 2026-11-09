@@ -103,6 +103,7 @@ const liveSubcategories = {
   'en-l-y-modulares': {label:'Sofás en L y modulares', test:type => /modular|(^|\s)en l(\s|$)/.test(type)},
   'mesas-de-centro': {label:'Mesas de centro', test:type => /mesa/.test(type)},
   'sillas-auxiliares': {label:'Sillas auxiliares', test:type => /silla|poltrona/.test(type)},
+  'tapetes': {label:'Tapetes', test:type => /tapete|alfombra/.test(type)},
   'comedor': {label:'Comedor', test:type => !/silla|taburete|banco/.test(type)},
   'sillas-de-comedor': {label:'Sillas de comedor', test:type => /silla/.test(type) && /comedor/.test(type)},
   'sillas-de-bar': {label:'Sillas de bar', test:type => /silla|taburete|banco/.test(type) && /bar|taburete|banco/.test(type)},
@@ -152,6 +153,13 @@ const livePhotoGroups = {
   }
 };
 function liveVariantPhotos(product, variant) {
+  const diningGallery = window.bedGalleries?.[product.handle] || window.sofaGalleries?.[product.handle] || window.diningGalleries?.[product.handle];
+  if (diningGallery && product.variants.length === 1) {
+    const newPhotos = diningGallery.photos.map(photo => ({...photo, url:siteUrl(photo.url)}));
+    return diningGallery.preserveOriginals
+      ? [...newPhotos, ...product.photos.map((photo,index) => ({...photo,kind:diningGallery.originalKind || 'original',altText:product.title+' — foto conservada '+(index+1)}))]
+      : newPhotos;
+  }
   const groups = livePhotoGroups[product.id];
   if (groups) {
     const prefix = groups[variant.id];
@@ -254,6 +262,21 @@ function renderLiveCatalog() {
     const variant = selectedLiveVariant(product);
     const photos = liveVariantPhotos(product, variant);
     setLiveImage(card.querySelector('img'), liveImageUrl(product, photos[0]?.url, 900), product.title + ' · ' + liveVariantLabel(product, variant));
+    const diningGallery = window.bedGalleries?.[product.handle] || window.sofaGalleries?.[product.handle] || window.diningGalleries?.[product.handle];
+    const imageButton = card.querySelector('.line-image, .product-image');
+    if (diningGallery && product.variants.length === 1 && imageButton) {
+      imageButton.classList.add('dining-photo');
+      const secondary = document.createElement('img');
+      secondary.className = 'dining-photo-ambient';
+      secondary.alt = '';
+      secondary.setAttribute('aria-hidden','true');
+      secondary.loading = 'lazy';
+      secondary.decoding = 'async';
+      secondary.width = 1536;
+      secondary.height = 1024;
+      secondary.src = photos[diningGallery.hoverIndex].url;
+      imageButton.append(secondary);
+    }
     const choices = card.querySelector('.fabric-options');
     if (choices) liveVariantControls(product, choices);
     else if (product.variants.length > 1) {
@@ -295,7 +318,7 @@ function renderLiveDetail() {
   const photos = liveVariantPhotos(product, variant);
   if (livePhotoIndex >= photos.length) livePhotoIndex = 0;
   const photo = photos[livePhotoIndex];
-  setLiveImage(liveDialog.querySelector('#detail-image, #line-detail-image'), photo?.url, photo?.altText || product.title); // foto grande: archivo original, sin redimensionar
+  setLiveImage(liveDialog.querySelector('#detail-image, #line-detail-image'), photo?.url, photo?.altText || [product.title, variant.title !== 'Default Title' ? variant.title : '', 'vista ' + (livePhotoIndex + 1)].filter(Boolean).join(' · ')); // foto grande: archivo original, sin redimensionar
   const thumbs = liveDialog.querySelector('#photo-thumbnails');
   if (thumbs) {
     thumbs.replaceChildren();
@@ -312,7 +335,9 @@ function renderLiveDetail() {
     });
   }
   const caption = document.querySelector('#photo-caption');
-  if (caption) caption.textContent = photos.length ? (livePhotoIndex + 1) + ' / ' + photos.length : 'Sin fotografías para esta variante';
+  const photoKindLabels = {white:'Fondo blanco', ambient:'Ambientación digital', original:'Foto original', catalogue:'Foto del catálogo'};
+  if (caption) caption.textContent = photos.length ? (livePhotoIndex + 1) + ' / ' + photos.length + (photo?.kind ? ' · ' + photoKindLabels[photo.kind] : '') : 'Sin fotografías para esta variante';
+  liveDialog.querySelector('.gallery-stage')?.classList.toggle('dining-white-stage', photo?.kind === 'white');
   const note = document.querySelector('#fabric-view-note');
   if (note) note.hidden = true;
   const category = document.querySelector('#line-detail-category');
@@ -380,14 +405,14 @@ window.addEventListener('shopify:updated', () => {
   if (searchDialog?.open) renderGlobalSearch();
   if (requestedProduct && !liveOpenedRequested && liveDialog) {
     liveOpenedRequested = true;
-    const product = shopifyLiveProducts.find(item => item.localId === requestedProduct && item.line === livePage);
+    const product = shopifyLiveProducts.find(item => item.line === livePage && (item.localId === requestedProduct || (['jamaica', 'medusa', 'chevron', 'luna', 'esfera'].includes(requestedProduct) && item.title.toLowerCase().includes(requestedProduct))));
     if (product) { liveSelectedId = product.id; renderLiveDetail(); openDialog(liveDialog); }
   }
 });
 
 
 const slides = Array.from(document.querySelectorAll('.hero-slide'));
-if(slides.length) {
+if(slides.length > 1 && !document.querySelector('.hero-with-medusa')) {
   const buttons = Array.from(document.querySelectorAll('[data-slide]'));
   let activeSlide = 0, timer;
   function showSlide(index) {

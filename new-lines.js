@@ -7,7 +7,7 @@ const newLineProducts = [
     "description": "Una composición modular de líneas amplias para imaginar una sala abierta y acogedora.",
     "line": "salas",
     "lineName": "Salas",
-    "image": "./assets/collections/sala-siena.jpg"
+    "image": "./assets/collections/sala-siena-optimized.webp"
   },
   {
     "id": "sala-verona",
@@ -17,7 +17,7 @@ const newLineProducts = [
     "description": "Una propuesta de tres puestos con una silueta definida y tonos fáciles de combinar.",
     "line": "salas",
     "lineName": "Salas",
-    "image": "./assets/collections/sala-verona.jpg"
+    "image": "./assets/collections/sala-verona-optimized.webp"
   },
   {
     "id": "sala-toscana",
@@ -27,7 +27,7 @@ const newLineProducts = [
     "description": "Un formato en L con carácter, pensado como inspiración para compartir y descansar.",
     "line": "salas",
     "lineName": "Salas",
-    "image": "./assets/collections/sala-toscana.jpg"
+    "image": "./assets/collections/sala-toscana-optimized.webp"
   },
   {
     "id": "silla-aura",
@@ -37,7 +37,7 @@ const newLineProducts = [
     "description": "Formas redondeadas y una textura suave para un rincón de lectura de inspiración serena.",
     "line": "sillas-auxiliares",
     "lineName": "Sillas auxiliares",
-    "image": "./assets/collections/silla-aura.jpg"
+    "image": "./assets/collections/silla-aura-optimized.webp"
   },
   {
     "id": "silla-nara",
@@ -47,7 +47,7 @@ const newLineProducts = [
     "description": "Una estructura de madera a la vista que aporta calidez y ligereza visual.",
     "line": "sillas-auxiliares",
     "lineName": "Sillas auxiliares",
-    "image": "./assets/collections/silla-nara.jpg"
+    "image": "./assets/collections/silla-nara-optimized.webp"
   },
   {
     "id": "silla-vega",
@@ -57,7 +57,7 @@ const newLineProducts = [
     "description": "Un acento de color con curvas envolventes para darle protagonismo a un rincón.",
     "line": "sillas-auxiliares",
     "lineName": "Sillas auxiliares",
-    "image": "./assets/collections/silla-vega.jpg"
+    "image": "./assets/collections/silla-vega-optimized.webp"
   },
   {
     "id": "cama-serena",
@@ -67,7 +67,7 @@ const newLineProducts = [
     "description": "Una cama tapizada de líneas suaves y cabecero amplio para una habitación de tonos naturales.",
     "line": "camas",
     "lineName": "Camas",
-    "image": "./assets/collections/cama-serena.jpg"
+    "image": "./assets/collections/cama-serena-optimized.webp"
   },
   {
     "id": "cama-cala",
@@ -77,7 +77,7 @@ const newLineProducts = [
     "description": "Una propuesta de madera con proporciones sencillas para un dormitorio cálido y luminoso.",
     "line": "camas",
     "lineName": "Camas",
-    "image": "./assets/collections/cama-cala.jpg"
+    "image": "./assets/collections/cama-cala-optimized.webp"
   },
   {
     "id": "cama-noche",
@@ -87,6 +87,6 @@ const newLineProducts = [
     "description": "Un cabecero de presencia definida que crea un punto de atención en el dormitorio.",
     "line": "camas",
     "lineName": "Camas",
-    "image": "./assets/collections/cama-noche.jpg"
+    "image": "./assets/collections/cama-noche-optimized.webp"
   }
 ];
