@@ -1,6 +1,6 @@
 (() => {
   const phone = '573208442629';
-  const message = 'Hola, quiero más información sobre los productos de La Casa del Sofacama.';
+  const message = 'Hola, quiero más información sobre los productos de Muebles Shalom.';
   const link = document.createElement('a');
   link.className = 'whatsapp-float';
   link.href = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);

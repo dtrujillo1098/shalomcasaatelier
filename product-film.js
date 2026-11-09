@@ -7,7 +7,7 @@ function select(index){frames.forEach((frame,i)=>{const on=i===index;frame.class
 function sync(){
  if(!allowed.matches){if(video){video.pause();video.remove();video=null;}hero.classList.remove('film-ready');select(0);return;}
  if(video)return;
- video=document.createElement('video');video.className='product-film';video.muted=true;video.autoplay=true;video.loop=true;video.playsInline=true;video.preload='auto';video.setAttribute('aria-hidden','true');video.src='./assets/banner-productos-original-12s.mp4';
+ video=document.createElement('video');video.className='product-film';video.muted=true;video.autoplay=true;video.loop=true;video.playsInline=true;video.preload='auto';video.setAttribute('aria-hidden','true');video.src='./assets/banner-productos-12s.mp4';
  video.addEventListener('playing',()=>hero.classList.add('film-ready'));
  video.addEventListener('timeupdate',()=>select(Math.min(2,Math.floor(video.currentTime/4))));
  video.addEventListener('error',()=>{hero.classList.remove('film-ready');select(0);});

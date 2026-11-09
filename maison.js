@@ -196,42 +196,6 @@
     if (!gallery.contains(event.relatedTarget)) gallery.classList.remove('is-interacting');
   });
 })();
-// El video se descarga y reproduce solo en PC sin movimiento reducido.
-(function () {
-  const slide = document.querySelector('body.site-home .hero-slide');
-  if (!slide || slide.closest('[data-static-banner]')) return;
-  const allowed = matchMedia('(min-width:961px) and (prefers-reduced-motion:no-preference)');
-  let video, toggle;
-  function sync() {
-    if (!allowed.matches) {
-      if (video) { video.pause(); video.remove(); toggle.remove(); video = null; }
-      return;
-    }
-    if (video) return;
-    video = document.createElement('video');
-    video.className = 'hero-banner-video';
-    video.muted = true; video.autoplay = true; video.loop = true; video.playsInline = true;
-    video.setAttribute('aria-hidden', 'true');
-    video.poster = './assets/hero-bogota-editorial-optimized.webp';
-    video.src = './assets/hero-bogota-fullhd.mp4';
-    toggle = document.createElement('button');
-    toggle.type = 'button'; toggle.className = 'hero-video-toggle';
-    toggle.textContent = 'Pausar video'; toggle.hidden = true;
-    video.addEventListener('playing', () => {
-      video.classList.add('is-ready'); toggle.hidden = false; toggle.textContent = 'Pausar video';
-    });
-    video.addEventListener('pause', () => { toggle.textContent = 'Reproducir video'; });
-    video.addEventListener('error', () => { video.classList.remove('is-ready'); toggle.hidden = true; });
-    toggle.addEventListener('click', () => {
-      if (video.paused) video.play().catch(() => {}); else video.pause();
-    });
-    slide.insertBefore(video, slide.querySelector('.hero-shade'));
-    slide.append(toggle);
-    video.play().catch(() => { toggle.hidden = false; toggle.textContent = 'Reproducir video'; });
-  }
-  allowed.addEventListener('change', sync);
-  sync();
-})();
 // Cambio de portada cada seis segundos en escritorio.
 (function(){
  const hero=document.querySelector('.hero-with-medusa');if(!hero || hero.hasAttribute('data-product-film'))return;

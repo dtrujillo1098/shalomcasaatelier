@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mueblesshalom.co/sitemap.xml
