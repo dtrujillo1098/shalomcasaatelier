@@ -152,8 +152,19 @@ const livePhotoGroups = {
     "gid://shopify/ProductVariant/67848189870214": "sofa-cama-polar-boucle-blanco-ambientacion-"
   }
 };
+function liveSleeperGallery(product, variant) {
+  return window.sleeperGalleries?.[product.handle]?.variants?.[variant.id];
+}
 function liveVariantPhotos(product, variant) {
-  const diningGallery = window.bedGalleries?.[product.handle] || window.sofaGalleries?.[product.handle] || window.diningGalleries?.[product.handle];
+  const sleeperGallery = liveSleeperGallery(product, variant);
+  if (sleeperGallery) {
+    const featured = sleeperGallery.photos.map(photo => ({...photo, url:siteUrl(photo.url)}));
+    const reused = new Set(sleeperGallery.reusedOriginalUrls);
+    const originalUrls = new Set(sleeperGallery.originalUrls);
+    const originals = product.photos.filter(photo => originalUrls.has(photo.url) && !reused.has(photo.url));
+    return [...featured, ...originals.map((photo,index) => ({...photo, kind:sleeperGallery.originalKind, altText:product.title+' — foto conservada '+(index+1)}))];
+  }
+  const diningGallery = window.modularGalleries?.[product.handle] || window.bedGalleries?.[product.handle] || window.sofaGalleries?.[product.handle] || window.diningGalleries?.[product.handle];
   if (diningGallery && product.variants.length === 1) {
     const newPhotos = diningGallery.photos.map(photo => ({...photo, url:siteUrl(photo.url)}));
     return diningGallery.preserveOriginals
@@ -262,9 +273,10 @@ function renderLiveCatalog() {
     const variant = selectedLiveVariant(product);
     const photos = liveVariantPhotos(product, variant);
     setLiveImage(card.querySelector('img'), liveImageUrl(product, photos[0]?.url, 900), product.title + ' · ' + liveVariantLabel(product, variant));
-    const diningGallery = window.bedGalleries?.[product.handle] || window.sofaGalleries?.[product.handle] || window.diningGalleries?.[product.handle];
+    const sleeperGallery = liveSleeperGallery(product, variant);
+    const diningGallery = sleeperGallery || window.modularGalleries?.[product.handle] || window.bedGalleries?.[product.handle] || window.sofaGalleries?.[product.handle] || window.diningGalleries?.[product.handle];
     const imageButton = card.querySelector('.line-image, .product-image');
-    if (diningGallery && product.variants.length === 1 && imageButton) {
+    if (diningGallery && (sleeperGallery || product.variants.length === 1) && imageButton) {
       imageButton.classList.add('dining-photo');
       const secondary = document.createElement('img');
       secondary.className = 'dining-photo-ambient';
