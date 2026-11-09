@@ -18,6 +18,7 @@ function shopifyLine(product) {
   if (/dormitorio|comoda/.test(value)) return 'camas';
   if (/mesa.{0,3}auxiliar/.test(value)) return 'salas';
   if (/lampara|luminaria|iluminacion|aplique|plafon/.test(value)) return 'iluminacion';
+  if (/tapete|alfombra/.test(value)) return 'salas';
   if (/decoracion|espejo|cuadro|jarron|florero|cojin|tapete|alfombra/.test(value)) return 'decoracion';
   if (/silla.{0,30}(comedor|bar)|taburete|banco/.test(value)) return 'comedores';
   if (/mesa.{0,3}de.{0,3}noche|nochero|velador/.test(value)) return 'camas';

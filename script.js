@@ -103,6 +103,7 @@ const liveSubcategories = {
   'en-l-y-modulares': {label:'Sofás en L y modulares', test:type => /modular|(^|\s)en l(\s|$)/.test(type)},
   'mesas-de-centro': {label:'Mesas de centro', test:type => /mesa/.test(type)},
   'sillas-auxiliares': {label:'Sillas auxiliares', test:type => /silla|poltrona/.test(type)},
+  'tapetes': {label:'Tapetes', test:type => /tapete|alfombra/.test(type)},
   'comedor': {label:'Comedor', test:type => !/silla|taburete|banco/.test(type)},
   'sillas-de-comedor': {label:'Sillas de comedor', test:type => /silla/.test(type) && /comedor/.test(type)},
   'sillas-de-bar': {label:'Sillas de bar', test:type => /silla|taburete|banco/.test(type) && /bar|taburete|banco/.test(type)},
