@@ -302,10 +302,6 @@ body.site-home .home-about{background:var(--paper);border-top:0;border-bottom:0}
   footer .footer-top p{display:none}
   footer .footer-top .brand-logo{margin-bottom:26px}
 }
-/* Pie en celular: sin el texto "Tienda en preparación · Compra online próximamente" */
-@media(max-width:960px){
-  footer .footer-bottom span:last-child{display:none}
-}
 /* Pie en celular: los 4 enlaces pegados a la izquierda */
 @media(max-width:960px){
   footer .footer-top nav{grid-template-columns:repeat(2,max-content);justify-content:start;column-gap:48px}
