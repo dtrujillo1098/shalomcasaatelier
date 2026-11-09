@@ -18,7 +18,7 @@
   };
   const foto = (p, ancho) => {
     const curados = ['sala-modular-agora', 'juego-comedor-ocre', 'dormitorio-bellizi', 'aparador-soul'];
-    if (matchMedia('(min-width:961px)').matches && curados.includes(p.handle)) return './assets/' + p.handle + '-ambientado.webp';
+    if (curados.includes(p.handle)) return matchMedia('(max-width:960px)').matches ? './assets/mobile/' + p.handle + '-ambientado-640.webp' : './assets/' + p.handle + '-ambientado.webp';
     if (p.handle === 'dormitorio-jamaica' || p.localId === 'dormitorio-jamaica') return './assets/dormitorio-jamaica-ambientado.webp';
     if (p.handle === 'aparador-jamaica' || p.localId === 'aparador-jamaica') return './assets/aparador-jamaica-ambientado.webp';
     const url = (p.photos && p.photos[0] && p.photos[0].url) || p.image;
@@ -50,9 +50,7 @@
     if (!catalogo.length) return;
     const seleccion = ['sala-modular-agora', 'juego-comedor-ocre', 'dormitorio-bellizi', 'aparador-soul'];
     const excluidos = new Set(['sala-luna','comedor-medusa','comedor-nube','sofa-cama-nova','dormitorio-lux','cama-chevron','mesa-esfera']);
-    const elegidos = matchMedia('(min-width:961px)').matches
-      ? seleccion.map(handle => catalogo.find(p => p.handle === handle && !excluidos.has(p.handle))).filter(Boolean)
-      : orden.map(linea => catalogo.find(p => p.line === linea && (p.photos && p.photos.length || p.image))).filter(Boolean);
+    const elegidos = seleccion.map(handle => catalogo.find(p => p.handle === handle && !excluidos.has(p.handle))).filter(Boolean);
     if (!elegidos.length) return;
     grid.replaceChildren();
     elegidos.forEach(p => {

@@ -1,0 +1,158 @@
+/* Ajustes compartidos: escritorio conserva sus reglas originales. */
+@media(max-width:960px){
+ html{scroll-padding-top:84px}
+ body{min-width:0}
+ main,section,article,figure,.detail-copy{min-width:0}
+ body .utility-bar{display:none}
+ body .header{height:72px;padding:0 16px;gap:10px;display:grid;grid-template-columns:44px minmax(0,1fr) 44px;position:sticky!important;top:0!important;left:auto;right:auto;transform:none;width:100%;background:rgba(250,247,242,.98);color:#3d302a;z-index:40;border-bottom:1px solid #ded2c5;box-shadow:none}
+ body.site-home .header{margin:0!important}
+ body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)){background:rgba(250,247,242,.98);color:#3d302a}
+ body .header .menu-toggle{display:grid;place-items:center;width:44px;height:44px;padding:10px;color:#3d302a!important;filter:none}
+ body .header .brand-logo.logo7{position:relative;justify-self:center;justify-content:center;min-width:0;max-width:200px;width:100%!important;height:48px!important}
+ body .header .brand-logo.logo7 img.logo7-mark.logo-shalom{position:absolute;inset:0;margin:auto;height:48px;max-width:100%;filter:none}
+ body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .brand-logo img{filter:none}
+ body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .icon,body.site-home .header:not(.is-scrolled):not(:has(#main-nav.is-open)) .bag{color:#3d302a!important;filter:none}
+ body .header .header-actions{justify-content:flex-end;gap:0}
+ body .header .header-actions>.icon{display:none}
+ body .header .bag{position:relative;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:8px;font-size:0}
+ body .header .bag svg{width:22px;height:22px}
+ body .header nav#main-nav{top:72px;max-height:calc(100dvh - 72px);overflow-y:auto;overscroll-behavior:contain;padding:20px 24px 32px}
+ body .header nav#main-nav a{font-size:15px;line-height:1.5;min-height:44px;white-space:normal}
+ body .header nav#main-nav .submenu a{padding:10px 0}
+ .section{padding:44px 20px}
+ h1,h2,h3,p,a{overflow-wrap:break-word}
+ .page-intro{padding:28px 20px 22px}
+ .page-intro h1{font-size:clamp(34px,7vw,48px);line-height:1.12;margin:14px 0 18px}
+ .page-intro-text{font-size:15px;line-height:1.75}
+ .eyebrow{font-size:10px;line-height:1.7;letter-spacing:.18em}
+ .section-heading{gap:18px;margin-bottom:26px}
+ .section-heading h2,.home-about h2{font-size:clamp(32px,7vw,44px);line-height:1.12}
+ .collection-tabs{margin:0 20px;max-width:calc(100% - 40px);scrollbar-width:thin}
+ .collection-tabs a{font-size:12px;min-height:44px}
+ .catalog-toolbar,.line-search-toolbar{gap:16px}
+ .search{width:100%;min-width:0}
+ .search input,#global-search-input{font-size:16px;min-height:44px}
+ .product-card,.line-product{min-width:0}
+ :is(.product-image,.line-image).dining-photo{aspect-ratio:3/2}
+ .product-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin:16px 0 10px}
+ .product-title h3,.line-product h3{font-size:clamp(22px,5vw,28px);line-height:1.2}
+ .product-card>p,.line-description,.line-product>p{font-size:14px;line-height:1.65}
+ .fabric-choices{display:flex;flex-wrap:wrap;gap:10px}
+ .fabric-choice{min-width:40px;min-height:40px}
+ .fabric-label{font-size:12px;line-height:1.6}
+ .button,.maison-cta{max-width:100%;min-height:46px;white-space:normal}
+ dialog{width:calc(100% - 20px);max-width:720px;max-height:calc(100dvh - 20px);margin:auto;overflow-y:auto;overscroll-behavior:contain}
+ dialog .close{position:sticky;float:right;top:8px;right:8px;margin:8px 8px -52px 0;z-index:10;width:44px;height:44px;border-radius:50%;box-shadow:0 2px 12px #3d302a18}
+ dialog .detail-layout{display:grid;grid-template-columns:minmax(0,1fr)}
+ dialog .product-gallery{padding:52px 12px 16px}
+ dialog .gallery-stage>img{width:100%;height:auto;aspect-ratio:3/2;max-height:55dvh;object-fit:contain}
+ .photo-arrow{width:40px;height:40px}
+ dialog .photo-thumbnails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;max-width:none;margin:12px 0 0}
+ dialog .photo-thumbnails img{aspect-ratio:3/2;object-fit:contain;background:#fff}
+ dialog .photo-thumbnails button{min-height:44px}
+ dialog .detail-copy{padding:20px 20px 28px}
+ dialog .detail-copy h2{font-size:clamp(30px,7vw,40px);line-height:1.12;margin:14px 0 18px}
+ dialog .detail-copy>p{font-size:15px;line-height:1.75}
+ dialog .purchase-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+ dialog .purchase-row .button.buy-link{margin:0;max-width:100%;flex:1 1 190px;justify-content:center}
+ #back-to-catalog,#line-detail-close{position:static;width:100%;margin:28px 0 0;white-space:normal}
+ .whatsapp-float{width:48px;height:48px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));padding:0;justify-content:center}
+ .whatsapp-float span{display:none}
+ body:has(dialog[open]) .whatsapp-float{display:none}
+ body.site-home .hero.hero-with-medusa{height:auto;min-height:0;max-height:none;color:#3d302a;background:#f6f1e9}
+ body.site-home .hero-with-medusa .hero-slide{display:none;position:relative;inset:auto;width:100%;height:auto;opacity:0;visibility:hidden;pointer-events:none}
+ body.site-home .hero-with-medusa .hero-slide.is-banner-active{display:block;opacity:1;visibility:visible;pointer-events:auto;animation:mobile-ambiente .6s ease both}
+ body.site-home .hero-with-medusa .hero-slide>img{display:block;position:relative;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;object-position:center;transform:none;animation:none}
+ body.site-home .hero-with-medusa .hero-shade{display:none}
+ body.site-home .hero-with-medusa .hero-copy{position:relative;inset:auto;transform:none;max-width:none;padding:26px 24px 22px;min-height:300px}
+ body.site-home .hero .hero-copy h1{font-size:clamp(36px,8vw,52px);line-height:1.02;letter-spacing:-.02em;margin:12px 0 16px;color:#3d302a;animation:none}
+ body.site-home .hero .hero-copy h1 br{display:none}
+ body.site-home .hero .hero-copy h1 br::after{content:' '}
+ body.site-home .hero .hero-copy h1 em{display:block}
+ body.site-home .hero .hero-eyebrow{font-size:10px;letter-spacing:.2em;line-height:1.7;margin:0;color:#a95c3c;animation:none}
+ body.site-home .hero .hero-copy p:not(.hero-eyebrow){font-size:15px;line-height:1.6;max-width:none;color:#6f6258;margin:0 0 20px;animation:none}
+ body.site-home .hero .button.maison-cta.hero-cta{margin:0;padding:13px 20px;font-size:11px;line-height:1.5;letter-spacing:.12em;min-height:46px;gap:20px;animation:none}
+ .mobile-banner-controls{display:flex;gap:8px;padding:0 24px 24px;position:relative;z-index:3}
+ .mobile-banner-controls button{flex:1;min-width:0;min-height:44px;padding:9px 6px;background:transparent;color:#604b40;border:1px solid #d7c8b9;border-radius:4px;font:500 12px/1.4 'DM Sans',sans-serif}
+ .mobile-banner-controls button[aria-pressed=true]{background:#604b40;color:#fff;border-color:#604b40}
+ .hero-product-tag{display:none!important}
+ body.site-home .maison-destacada{grid-template-columns:minmax(0,1fr);padding:40px 20px;gap:24px;max-width:720px}
+ body.site-home .maison-destacada+.maison-destacada{padding-top:40px}
+ body.site-home .maison-destacada.invertida .maison-destacada-foto{order:0}
+ body.site-home .maison-destacada .maison-destacada-foto{width:100%;aspect-ratio:3/2;margin:0}
+ .maison-destacada-foto>a{display:block;width:100%;height:100%}
+ body.site-home .maison-destacada-foto img{object-fit:cover;transform:none}
+ .maison-destacada-texto{max-width:none}
+ .maison-destacada h2,.maison-cabecera h2{font-size:clamp(32px,7.8vw,44px);line-height:1.08}
+ .maison-destacada-texto p{font-size:15px;line-height:1.75;margin:16px 0 22px}
+ .maison-destacada-texto .maison-eyebrow{font-size:10px;letter-spacing:.2em;margin:0 0 12px}
+ .maison-cta{padding:14px 20px;font-size:11px;line-height:1.5;letter-spacing:.12em}
+ .collection-product-label,.blog-product-label{display:inline-flex;position:absolute;right:10px;bottom:10px;max-width:calc(100% - 20px);padding:6px 10px;background:rgba(250,246,237,.82);border:1px solid #ffffff80;border-radius:4px;color:#3d302a;font:500 16px/1.3 'Cormorant Garamond',Georgia,serif;opacity:1;visibility:visible;translate:none;pointer-events:auto}
+ body.site-home .maison-nuevo{padding:44px 20px;max-width:none}
+ .maison-cabecera{margin-bottom:26px;gap:20px}
+ .maison-eyebrow{font-size:10px;line-height:1.7;letter-spacing:.2em}
+ .maison-grid{gap:28px 18px}
+ .maison-card h3{font-size:25px;line-height:1.18}
+ .maison-card-cat{font-size:10px;line-height:1.6;letter-spacing:.16em;margin:14px 0 7px}
+ .maison-card-desc{font-size:14px;line-height:1.65}
+ .maison-tag{left:10px;top:10px;font-size:9px;line-height:1.4;letter-spacing:.1em;max-width:calc(100% - 20px);padding:6px 8px}
+ body.site-home .category-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:18px}
+ body.site-home .category-tile:nth-child(n){grid-column:auto;grid-row:auto;aspect-ratio:4/5}
+ body.site-home .category-label{left:14px;right:14px;bottom:58px;gap:8px}
+ body.site-home .category-label h3{font-size:28px;line-height:1.05}
+ body.site-home .category-tile>p{left:14px;right:14px;bottom:16px;font-size:13px;line-height:1.45}
+ body.site-home #blog .journal-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:36px}
+ body.site-home #blog .journal-card:nth-child(n){display:flex;flex-flow:column nowrap;height:auto;max-height:none;max-width:none;gap:0}
+ body.site-home #blog .journal-card>*{flex:none;min-width:0;max-width:100%}
+ #blog .blog-product-photo{width:100%;aspect-ratio:3/2}
+ #blog .journal-card-image{width:100%;height:100%;aspect-ratio:3/2}
+ #blog .journal-card h3{font-size:27px;line-height:1.2;margin:0 0 14px}
+ #blog .journal-preview{max-height:none;overflow:visible;mask-image:none;-webkit-mask-image:none;font-size:15px;line-height:1.75}
+ #blog .journal-kicker{font-size:10px;line-height:1.7;margin:18px 0 12px}
+ #blog .journal-read{font-size:13px;min-height:44px;margin-top:20px}
+ .blog-intro{font-size:15px;line-height:1.75}
+ .home-about{grid-template-columns:minmax(0,1fr);gap:28px}
+ .home-about img{width:100%;max-width:400px;height:auto;aspect-ratio:3/4}
+ .home-about p:not(.eyebrow){font-size:15px;line-height:1.75}
+ .home-about .about-pillars h3{font-size:20px;line-height:1.3}
+ .home-about .about-pillars p:not(.eyebrow){font-size:14px;line-height:1.75}
+ .article-figure>img{height:auto;aspect-ratio:3/2;object-fit:contain}
+ .article-figure.blog-product-photo .blog-product-label{bottom:34px}
+ .article-heading h1,.journal-index-heading h1{font-size:clamp(32px,7vw,46px);line-height:1.15}
+ .article-body p,.article-body li{font-size:16px;line-height:1.8}
+ .article-body h2{font-size:28px}
+ .journal-main,.article-layout,.journal-card{min-width:0}
+ body.site-home main>section:not(.hero):not(.maison-destacadas)::before,body.site-home .maison-destacada::before,body.site-home footer::before{width:100%;left:0;right:0;transform:none}
+ footer .footer-social{font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+ footer .footer-legal a{font-size:13px;line-height:1.6}
+ /* Portada móvil: fotografía completa y únicamente su enlace de colección. */
+ body.site-home .hero-with-medusa .hero-copy{position:absolute;inset:auto 12px 12px auto;padding:0;min-height:0;max-width:calc(100% - 24px);z-index:3}
+ body.site-home .hero-with-medusa .hero-copy>p,body.site-home .hero-with-medusa .hero-copy>h1{display:none}
+ body.site-home .hero .button.maison-cta.hero-cta{font-size:10px;letter-spacing:.1em;min-height:36px;min-width:0;width:auto;padding:9px 13px;gap:0;box-shadow:0 3px 12px #30221820}
+ body.site-home .hero .hero-cta span{display:none}
+ body.site-home .mobile-banner-controls{display:none}
+}
+@media(max-width:600px){
+ .product-grid,.line-grid,.maison-grid{grid-template-columns:minmax(0,1fr);gap:32px}
+ .maison-card-img{aspect-ratio:3/2}
+ body.site-home .category-grid{grid-template-columns:minmax(0,1fr)}
+ body.site-home .category-tile:nth-child(n){aspect-ratio:4/3}
+ body.site-home .category-label{bottom:54px}
+ footer{column-gap:18px}
+}
+@media(prefers-reduced-motion:reduce){.hero-slide.is-banner-active{animation:none!important}}
+@keyframes mobile-ambiente{from{opacity:.3}to{opacity:1}}
+
+/* La misma portada de PC, con encuadre 9:16 dedicado para celular. */
+.hero-slide>.hero-visual{position:absolute;inset:0;display:block;width:100%;height:100%}
+.hero-slide>.hero-visual>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+@media(min-width:961px){
+ .film-ready .hero-slide>.hero-visual>img{opacity:0!important;animation:none!important}
+}
+@media(min-width:961px) and (prefers-reduced-motion:no-preference){
+ .hero-with-medusa .hero-slide.is-banner-active>.hero-visual>img{animation:medusa-camara-suave 7.2s cubic-bezier(.25,.1,.25,1) both;transform-origin:65% 55%}
+}
+@media(max-width:960px){
+ body.site-home .hero-with-medusa .hero-slide>.hero-visual{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:9/16}
+ body.site-home .hero-with-medusa .hero-slide>.hero-visual>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:none;animation:none}
+}
