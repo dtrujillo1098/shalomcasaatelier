@@ -71,3 +71,14 @@
   addEventListener('shopify:updated', pintar);
   pintar();
 })();
+
+// Divisores entre secciones: las dos líneas se dibujan al entrar en pantalla.
+(function () {
+  const divisores = [...document.querySelectorAll('.m-divisor')];
+  if (!divisores.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('m-anim');
+  const vigia = new IntersectionObserver(entradas => entradas.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); vigia.unobserve(e.target); }
+  }), { threshold: 0.9 });
+  divisores.forEach(d => vigia.observe(d));
+})();

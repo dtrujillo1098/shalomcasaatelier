@@ -86,3 +86,14 @@
   .site-home .hero-eyebrow,.site-home .hero-slide h1,.site-home .hero-copy p,.site-home .maison-cta{animation:none!important}
   .maison-destacada-foto img,.maison-card-img img,.site-home .category-image img{transition:none}
 }
+
+/* ---------- Divisores de dos líneas, con colores de las telas, entre secciones ---------- */
+.m-divisor{display:grid;gap:6px;width:min(1360px,calc(100% - 2*clamp(18px,3.4vw,48px)));margin:clamp(10px,1.6vw,22px) auto}
+.m-divisor i{display:block;height:4px;border-radius:4px}
+.m-divisor i:first-child{background:var(--a);transform-origin:left}
+.m-divisor i:last-child{background:var(--b);transform-origin:right}
+html.m-anim .m-divisor i{transform:scaleX(0);transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+html.m-anim .m-divisor i:last-child{transition-delay:.18s}
+html.m-anim .m-divisor.visible i{transform:scaleX(1)}
+@media(max-width:700px){.m-divisor i{height:3px}.m-divisor{gap:5px}}
+@media(prefers-reduced-motion:reduce){html.m-anim .m-divisor i{transform:none;transition:none}}
